@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>SupportPilot</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #dbeafe, #eef2ff, #f5f3ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>SupportPilot</h1>
+
+        <h2>Submit IT Support Ticket</h2>
+
+
+        <!-- EMPLOYEE NAME -->
+
+        <div class="form-group">
+
+            <label>Employee Name:</label>
+
+            <input
+                type="text"
+                id="employee_name"
+                placeholder="Enter employee name"
+                required
+            >
+
+        </div>
+
+
+        <!-- DEPARTMENT -->
+
+        <div class="form-group">
+
+            <label>Department:</label>
+
+            <select id="department" required>
+
+                <option value="">Select Department</option>
+
+                <option value="IT">IT</option>
+
+                <option value="HR">HR</option>
+
+                <option value="Finance">Finance</option>
+
+                <option value="Marketing">Marketing</option>
+
+                <option value="Operations">Operations</option>
+
+                <option value="Sales">Sales</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- PROBLEM DESCRIPTION -->
+
+        <label>Describe your problem:</label>
+
+        <textarea
+            id="description"
+            placeholder="Example: I cannot connect to the company network..."
+        ></textarea>
+
+
+        <!-- BUSINESS IMPACT -->
+
+        <label>Business Impact:</label>
+
+        <select id="impact">
+
+            <option value="Single user">
+                Single user
+            </option>
+
+            <option value="Limited users">
+                Limited users
+            </option>
+
+            <option value="Multiple users">
+                Multiple users
+            </option>
+
+            <option value="Organization-wide">
+                Organization-wide
+            </option>
+
+        </select>
+
+
+        <!-- SUBMIT BUTTON -->
+
+        <button onclick="submitTicket()">
+            Submit Ticket
+        </button>
+
+
+        <!-- TICKET RESULT -->
+
+        <div id="result">
+
+            <h2>Ticket Result</h2>
+
+            <p>
+                <strong>Ticket ID:</strong>
+                <span id="ticket_id"></span>
+            </p>
+
+            <p>
+                <strong>Employee Name:</strong>
+                <span id="result_employee_name"></span>
+            </p>
+
+            <p>
+                <strong>Department:</strong>
+                <span id="result_department"></span>
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+                <span id="category"></span>
+            </p>
+
+            <p>
+                <strong>Severity:</strong>
+                <span id="severity"></span>
+            </p>
+
+            <p>
+                <strong>Priority:</strong>
+                <span id="priority"></span>
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span id="status"></span>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        async function submitTicket() {
+
+            const employee_name =
+                document.getElementById("employee_name").value;
+
+            const department =
+                document.getElementById("department").value;
+
+            const description =
+                document.getElementById("description").value;
+
+            const impact =
+                document.getElementById("impact").value;
+
+
+            // Check Employee Name
+
+            if (!employee_name.trim()) {
+
+                alert("Please enter employee name.");
+
+                return;
+            }
+
+
+            // Check Department
+
+            if (!department) {
+
+                alert("Please select a department.");
+
+                return;
+            }
+
+
+            // Check Description
+
+            if (!description.trim()) {
+
+                alert("Please describe your problem.");
+
+                return;
+            }
+
+
+            const response = await fetch("/submit", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    employee_name: employee_name,
+
+                    department: department,
+
+                    description: description,
+
+                    impact: impact
+
+                })
+
+            });
+
+
+            const result = await response.json();
+
+
+            if (result.error) {
+
+                alert(result.error);
+
+                return;
+
+            }
+
+
+            // Display Ticket Information
+
+            document.getElementById("ticket_id").textContent =
+                result.ticket_id;
+
+            document.getElementById("result_employee_name").textContent =
+                employee_name;
+
+            document.getElementById("result_department").textContent =
+                department;
+
+            document.getElementById("category").textContent =
+                result.category;
+
+            document.getElementById("severity").textContent =
+                result.severity;
+
+            document.getElementById("priority").textContent =
+                result.priority;
+
+            document.getElementById("status").textContent =
+                result.status;
+
+
+            // Show Result
+
+            document.getElementById("result").style.display =
+                "block";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

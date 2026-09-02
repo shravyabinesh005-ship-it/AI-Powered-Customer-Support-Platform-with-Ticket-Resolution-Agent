@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+supportpilot.db
+dataset/clean_customer_support_tickets.csv
