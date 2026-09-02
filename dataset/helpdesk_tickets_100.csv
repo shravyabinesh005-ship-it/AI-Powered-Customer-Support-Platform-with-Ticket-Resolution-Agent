@@ -1,0 +1,101 @@
+Ticket_ID,Date_Created,Date_Resolved,Category,Subcategory,Priority,Status,Assigned_Team,Resolution_Time_Hrs,Description,Escalated
+987232,2023-11-07,2023-11-14,Network,Network ACL blocking,Medium,Pending,Network Team,4.59,User reported Network ACL blocking. Further investigation needed.,False
+79955,2023-11-27,,Security,Suspicious third-party compromise,Critical,In Progress,Security Team,1.36,User reported Suspicious third-party compromise. Further investigation needed.,False
+567131,2023-11-29,,Software,Mobile app not installing,Medium,In Progress,Application Support,9.35,User reported Mobile app not installing. Further investigation needed.,True
+500892,2023-11-06,2023-11-10,Network,Switch port failure,Medium,Pending,Network Team,9.42,User reported Switch port failure. Further investigation needed.,False
+55400,2023-11-13,2023-11-17,Hardware,Laptop screen burn-in,High,Pending,Desktop Support,1.85,User reported Laptop screen burn-in. Further investigation needed.,False
+135050,2023-11-12,2023-11-19,Network,Network port scanning detected,Medium,Pending,Network Team,1.6,User reported Network port scanning detected. Further investigation needed.,False
+733379,2023-11-17,2023-11-22,Software,Application deadlock,Medium,Resolved,Application Support,1.25,User reported Application deadlock. Further investigation needed.,True
+732058,2023-11-24,2023-11-28,Software,Cloud sync failure,Critical,On Hold,Application Support,4.1,User reported Cloud sync failure. Further investigation needed.,False
+51334,2023-11-08,2023-11-12,Software,Mobile app not installing,Medium,In Progress,Application Support,2.5,User reported Mobile app not installing. Further investigation needed.,True
+731480,2023-11-03,,Security,Suspicious admin activity,Low,In Progress,Security Team,3.19,User reported Suspicious admin activity. Further investigation needed.,False
+399759,2023-11-21,,Hardware,Touchpad not responding,Medium,Open,Desktop Support,1.7,User reported Touchpad not responding. Further investigation needed.,True
+401398,2023-11-12,2023-11-17,Software,Browser crashing,Low,In Progress,Application Support,2.46,User reported Browser crashing. Further investigation needed.,False
+855486,2023-11-01,2023-11-07,Security,Suspicious ARP spoofing,Critical,On Hold,Security Team,5.77,User reported Suspicious ARP spoofing. Further investigation needed.,False
+858885,2023-11-08,2023-11-13,Software,Application crash on VM shutdown,Critical,Open,Application Support,6.74,User reported Application crash on VM shutdown. Further investigation needed.,False
+503248,2023-11-05,2023-11-10,Software,Macro execution error,Low,Open,Application Support,6.29,User reported Macro execution error. Further investigation needed.,True
+864742,2023-11-28,2023-12-04,Hardware,Laptop screen dim,Low,In Progress,Desktop Support,3.35,User reported Laptop screen dim. Further investigation needed.,False
+35033,2023-11-26,2023-11-30,Hardware,Headset mic not working,Critical,Resolved,Desktop Support,5.47,User reported Headset mic not working. Further investigation needed.,False
+995704,2023-11-28,2023-12-03,Hardware,Touchpad not responding,Low,Open,Desktop Support,4.2,User reported Touchpad not responding. Further investigation needed.,False
+376762,2023-11-02,2023-11-03,Security,Suspicious login location,Low,On Hold,Security Team,3.73,User reported Suspicious login location. Further investigation needed.,True
+811354,2023-11-07,2023-11-11,Network,Network compliance violation,Low,Open,Network Team,1.64,User reported Network compliance violation. Further investigation needed.,True
+577746,2023-11-01,,Access,Access denied by endpoint policy,Medium,Open,Desktop Support,5.23,User reported Access denied by endpoint policy. Further investigation needed.,False
+659807,2023-11-06,,Software,Macro execution error,Critical,Open,Application Support,2.17,User reported Macro execution error. Further investigation needed.,True
+219340,2023-11-13,,Software,Service not starting,Critical,In Progress,Application Support,5.41,User reported Service not starting. Further investigation needed.,False
+979756,2023-11-07,2023-11-09,Software,Cache corruption,Critical,In Progress,Application Support,3.08,User reported Cache corruption. Further investigation needed.,False
+625692,2023-11-08,2023-11-13,Network,Network blackhole routing,Medium,Resolved,Network Team,0.77,User reported Network blackhole routing. Further investigation needed.,True
+215340,2023-11-12,2023-11-17,Security,Suspicious SIEM alert,High,In Progress,Security Team,4.53,User reported Suspicious SIEM alert. Further investigation needed.,False
+443418,2023-11-22,2023-11-28,Security,Suspicious supply chain attack,Critical,In Progress,Security Team,3.1,User reported Suspicious supply chain attack. Further investigation needed.,False
+980329,2023-11-23,2023-11-30,Security,Suspicious ISO violation,High,On Hold,Security Team,3.21,User reported Suspicious ISO violation. Further investigation needed.,False
+336984,2023-11-02,,Hardware,USB hub not recognized,High,On Hold,Desktop Support,1.28,User reported USB hub not recognized. Further investigation needed.,True
+518813,2023-11-30,,Software,Application deadlock,Low,Resolved,Application Support,6.79,User reported Application deadlock. Further investigation needed.,True
+943379,2023-11-17,2023-11-20,Access,Email account disabled,Critical,On Hold,Desktop Support,6.67,User reported Email account disabled. Further investigation needed.,False
+2086,2023-11-22,2023-11-29,Access,Access denied by vendor policy,Critical,In Progress,Desktop Support,3.93,User reported Access denied by vendor policy. Further investigation needed.,False
+663616,2023-11-30,2023-12-01,Software,Application crash on test,Low,Pending,Application Support,1.85,User reported Application crash on test. Further investigation needed.,False
+677815,2023-11-10,2023-11-15,Software,Configuration file missing,Medium,Open,Application Support,5.87,User reported Configuration file missing. Further investigation needed.,False
+957738,2023-11-20,2023-11-25,Hardware,Laptop touch screen not working,Low,On Hold,Desktop Support,0.57,User reported Laptop touch screen not working. Further investigation needed.,False
+543083,2023-11-10,2023-11-16,Security,Unauthorized access attempt,Low,In Progress,Security Team,6.01,User reported Unauthorized access attempt. Further investigation needed.,True
+529928,2023-11-26,2023-11-27,Network,Network IDS alert,High,Pending,Network Team,1.67,User reported Network IDS alert. Further investigation needed.,True
+66337,2023-11-16,2023-11-22,Security,Suspicious JWT token use,Critical,On Hold,Security Team,8.59,User reported Suspicious JWT token use. Further investigation needed.,True
+272967,2023-11-09,2023-11-16,Software,Application crash on VM deployment,High,In Progress,Application Support,2.07,User reported Application crash on VM deployment. Further investigation needed.,False
+876376,2023-11-27,,Hardware,Peripheral device failure,Medium,On Hold,Desktop Support,2.18,User reported Peripheral device failure. Further investigation needed.,True
+443182,2023-11-10,2023-11-13,Security,Suspicious mobile device alert,Critical,Pending,Security Team,4.93,User reported Suspicious mobile device alert. Further investigation needed.,True
+38748,2023-11-11,,Software,Plugin not loading,Critical,Open,Application Support,5.13,User reported Plugin not loading. Further investigation needed.,True
+244519,2023-11-02,2023-11-03,Software,Application crash on automation,Low,In Progress,Application Support,5.32,User reported Application crash on automation. Further investigation needed.,False
+321942,2023-11-30,2023-12-02,Security,Suspicious session hijack,Critical,Open,Security Team,3.3,User reported Suspicious session hijack. Further investigation needed.,False
+212424,2023-11-26,2023-11-30,Hardware,Loose cable connection,Medium,In Progress,Desktop Support,8.51,User reported Loose cable connection. Further investigation needed.,False
+684488,2023-11-09,2023-11-16,Network,Hotspot not working,Medium,In Progress,Network Team,2.65,User reported Hotspot not working. Further investigation needed.,True
+460022,2023-11-22,,Access,Access denied by geolocation policy,Medium,Resolved,Desktop Support,2.03,User reported Access denied by geolocation policy. Further investigation needed.,True
+330798,2023-11-18,,Software,Antivirus not updating,Low,Resolved,Application Support,5.39,User reported Antivirus not updating. Further investigation needed.,False
+820288,2023-11-08,2023-11-10,Hardware,Laptop BIOS corrupted,Low,Pending,Desktop Support,2.36,User reported Laptop BIOS corrupted. Further investigation needed.,False
+934969,2023-11-14,2023-11-19,Hardware,Laptop screen hinge broken,High,In Progress,Desktop Support,2.53,User reported Laptop screen hinge broken. Further investigation needed.,False
+878903,2023-11-28,2023-12-03,Hardware,Desktop won’t boot,High,Open,Desktop Support,8.7,User reported Desktop won’t boot. Further investigation needed.,False
+507015,2023-11-04,,Security,Suspicious custom policy violation,Critical,On Hold,Security Team,3.48,User reported Suspicious custom policy violation. Further investigation needed.,False
+63469,2023-11-28,2023-12-03,Hardware,USB port not working,High,Open,Desktop Support,3.96,User reported USB port not working. Further investigation needed.,False
+568671,2023-11-13,,Security,Suspicious backdoor detected,High,In Progress,Security Team,8.63,User reported Suspicious backdoor detected. Further investigation needed.,False
+855772,2023-11-01,2023-11-04,Hardware,Laptop screen white screen,High,Resolved,Desktop Support,9.31,User reported Laptop screen white screen. Further investigation needed.,True
+606373,2023-11-12,2023-11-16,Security,Zero-day exploit,Critical,On Hold,Security Team,8.83,User reported Zero-day exploit. Further investigation needed.,True
+358901,2023-11-07,,Security,Suspicious compliance violation,Low,Resolved,Security Team,4.28,User reported Suspicious compliance violation. Further investigation needed.,False
+178393,2023-11-21,,Access,Access denied by SaaS provider,Low,Resolved,Desktop Support,1.75,User reported Access denied by SaaS provider. Further investigation needed.,False
+921915,2023-11-26,,Hardware,Laptop motherboard short circuit,High,Resolved,Desktop Support,7.94,User reported Laptop motherboard short circuit. Further investigation needed.,True
+348366,2023-11-10,2023-11-14,Software,Email client not syncing,Critical,Open,Application Support,8.7,User reported Email client not syncing. Further investigation needed.,False
+377483,2023-11-05,2023-11-06,Software,Application not responding,High,Resolved,Application Support,0.99,User reported Application not responding. Further investigation needed.,False
+44793,2023-11-29,2023-12-04,Software,Database connection error,Low,In Progress,Application Support,6.41,User reported Database connection error. Further investigation needed.,True
+690928,2023-11-05,,Hardware,Laptop motherboard short circuit,Medium,Open,Desktop Support,9.64,User reported Laptop motherboard short circuit. Further investigation needed.,True
+50314,2023-11-15,,Software,Application crash on framework,Low,Resolved,Application Support,5.57,User reported Application crash on framework. Further investigation needed.,False
+780882,2023-11-09,2023-11-11,Network,SSID not visible,High,Open,Network Team,4.14,User reported SSID not visible. Further investigation needed.,False
+18959,2023-11-09,,Access,Access denied by mobile device policy,Medium,In Progress,Desktop Support,6.85,User reported Access denied by mobile device policy. Further investigation needed.,False
+804704,2023-11-03,2023-11-08,Software,Registry error,Low,Pending,Application Support,5.64,User reported Registry error. Further investigation needed.,True
+8986,2023-11-23,,Hardware,Laptop screen orange tint,Low,In Progress,Desktop Support,8.99,User reported Laptop screen orange tint. Further investigation needed.,True
+99902,2023-11-09,,Hardware,Laptop casing cracked,Critical,Open,Desktop Support,8.38,User reported Laptop casing cracked. Further investigation needed.,False
+655319,2023-11-10,2023-11-17,Hardware,Hard drive crash,Low,In Progress,Desktop Support,3.36,User reported Hard drive crash. Further investigation needed.,True
+224929,2023-11-17,2023-11-19,Hardware,Fan noise issue,Critical,In Progress,Desktop Support,0.59,User reported Fan noise issue. Further investigation needed.,False
+926626,2023-11-23,2023-11-30,Software,Email client not syncing,Critical,On Hold,Application Support,4.63,User reported Email client not syncing. Further investigation needed.,False
+67899,2023-11-27,2023-11-30,Network,Network driver outdated,Low,In Progress,Network Team,4.67,User reported Network driver outdated. Further investigation needed.,True
+68879,2023-11-13,,Network,Network port scanning detected,Low,Pending,Network Team,8.85,User reported Network port scanning detected. Further investigation needed.,True
+904485,2023-11-27,2023-12-01,Software,Email client not syncing,Medium,Open,Application Support,2.49,User reported Email client not syncing. Further investigation needed.,True
+244300,2023-11-11,,Access,Kerberos ticket expired,High,In Progress,Desktop Support,6.89,User reported Kerberos ticket expired. Further investigation needed.,False
+912238,2023-11-06,2023-11-10,Hardware,Monitor flickering,High,On Hold,Desktop Support,0.67,User reported Monitor flickering. Further investigation needed.,False
+803685,2023-11-15,,Network,Network MTU mismatch,Medium,Pending,Network Team,7.21,User reported Network MTU mismatch. Further investigation needed.,False
+444937,2023-11-22,,Network,Network collision detected,High,In Progress,Network Team,5.6,User reported Network collision detected. Further investigation needed.,True
+895959,2023-11-27,2023-11-29,Software,Software timeout,Medium,Resolved,Application Support,4.03,User reported Software timeout. Further investigation needed.,True
+858829,2023-11-19,2023-11-22,Software,Licensing issue,Critical,On Hold,Application Support,7.29,User reported Licensing issue. Further investigation needed.,False
+575348,2023-11-25,,Hardware,Hardware driver missing,Low,In Progress,Desktop Support,5.26,User reported Hardware driver missing. Further investigation needed.,True
+464017,2023-11-15,,Access,Access denied by API,Low,Open,Desktop Support,3.82,User reported Access denied by API. Further investigation needed.,False
+196830,2023-11-14,2023-11-20,Software,Application crash on logout,Low,In Progress,Application Support,7.83,User reported Application crash on logout. Further investigation needed.,True
+309024,2023-11-29,2023-12-02,Access,Access denied by conditional access,Critical,On Hold,Desktop Support,8.13,User reported Access denied by conditional access. Further investigation needed.,False
+347382,2023-11-07,2023-11-12,Access,Access denied by password policy,Medium,In Progress,Desktop Support,8.14,User reported Access denied by password policy. Further investigation needed.,True
+310805,2023-11-09,2023-11-10,Security,Suspicious JWT token use,Low,In Progress,Security Team,4.81,User reported Suspicious JWT token use. Further investigation needed.,False
+837524,2023-11-18,2023-11-19,Network,Network PAT misconfigured,High,Open,Network Team,3.34,User reported Network PAT misconfigured. Further investigation needed.,False
+268241,2023-11-02,2023-11-08,Network,Network tunneling error,Low,In Progress,Network Team,1.25,User reported Network tunneling error. Further investigation needed.,True
+366138,2023-11-25,2023-11-29,Software,Mobile app not installing,High,Pending,Application Support,3.24,User reported Mobile app not installing. Further investigation needed.,True
+449597,2023-11-30,2023-12-07,Security,Suspicious contractor compromise,Medium,Open,Security Team,1.79,User reported Suspicious contractor compromise. Further investigation needed.,True
+586918,2023-11-09,2023-11-10,Software,Application crash on workflow,Low,In Progress,Application Support,9.46,User reported Application crash on workflow. Further investigation needed.,True
+980754,2023-11-02,,Software,Slow application performance,Critical,Pending,Application Support,7.47,User reported Slow application performance. Further investigation needed.,False
+51663,2023-11-07,2023-11-08,Hardware,Laptop screen resolution error,High,On Hold,Desktop Support,3.29,User reported Laptop screen resolution error. Further investigation needed.,False
+892874,2023-11-22,2023-11-26,Software,Application crash on VM deployment,Medium,In Progress,Application Support,0.95,User reported Application crash on VM deployment. Further investigation needed.,True
+576799,2023-11-22,,Software,Unsupported operating system version,Medium,Pending,Application Support,8.29,User reported Unsupported operating system version. Further investigation needed.,False
+480867,2023-11-01,,Software,Mobile app not installing,Critical,Pending,Application Support,7.45,User reported Mobile app not installing. Further investigation needed.,False
+550671,2023-11-03,,Hardware,Laptop screen black screen,Low,Resolved,Desktop Support,5.4,User reported Laptop screen black screen. Further investigation needed.,False
+584292,2023-11-03,,Software,Application crash on build,Medium,Open,Application Support,1.72,User reported Application crash on build. Further investigation needed.,False
+362132,2023-11-05,2023-11-11,Software,Macro execution error,Medium,In Progress,Application Support,4.75,User reported Macro execution error. Further investigation needed.,True
