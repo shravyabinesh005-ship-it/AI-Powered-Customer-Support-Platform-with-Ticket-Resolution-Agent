@@ -1,0 +1,698 @@
+[
+    {
+        "id": 1,
+        "category": "Network",
+        "subcategory": "Network ACL blocking",
+        "priority": "Medium",
+        "title": "Network ACL blocking Troubleshooting Guide",
+        "content": "This guide covers Network ACL blocking. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 2,
+        "category": "Security",
+        "subcategory": "Suspicious third-party compromise",
+        "priority": "Critical",
+        "title": "Suspicious third-party compromise Troubleshooting Guide",
+        "content": "This guide covers Suspicious third-party compromise. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 3,
+        "category": "Software",
+        "subcategory": "Mobile app not installing",
+        "priority": "Medium",
+        "title": "Mobile app not installing Troubleshooting Guide",
+        "content": "This guide covers Mobile app not installing. First record any error message displayed during installation. Verify that the application version is compatible with the operating system and that the required installation files are available. Check available storage and required user permissions. Restart the computer and attempt the installation again. If installation continues to fail, review the error information and investigate application dependencies."
+    },
+    {
+        "id": 4,
+        "category": "Network",
+        "subcategory": "Switch port failure",
+        "priority": "Medium",
+        "title": "Switch port failure Troubleshooting Guide",
+        "content": "This guide covers Switch port failure. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 5,
+        "category": "Hardware",
+        "subcategory": "Laptop screen burn-in",
+        "priority": "High",
+        "title": "Laptop screen burn-in Troubleshooting Guide",
+        "content": "This guide covers Laptop screen burn-in. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 6,
+        "category": "Network",
+        "subcategory": "Network port scanning detected",
+        "priority": "Medium",
+        "title": "Network port scanning detected Troubleshooting Guide",
+        "content": "This guide covers Network port scanning detected. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 7,
+        "category": "Software",
+        "subcategory": "Application deadlock",
+        "priority": "Medium",
+        "title": "Application deadlock Troubleshooting Guide",
+        "content": "This guide covers Application deadlock. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 8,
+        "category": "Software",
+        "subcategory": "Cloud sync failure",
+        "priority": "Critical",
+        "title": "Cloud sync failure Troubleshooting Guide",
+        "content": "This guide covers Cloud sync failure. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 9,
+        "category": "Security",
+        "subcategory": "Suspicious admin activity",
+        "priority": "Low",
+        "title": "Suspicious admin activity Troubleshooting Guide",
+        "content": "This guide covers Suspicious admin activity. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 10,
+        "category": "Hardware",
+        "subcategory": "Touchpad not responding",
+        "priority": "Medium",
+        "title": "Touchpad not responding Troubleshooting Guide",
+        "content": "This guide covers Touchpad not responding. The issue may occur if the touchpad is disabled, if the touchpad settings are incorrect, if its device driver is not functioning correctly, or if there is a hardware problem. Troubleshooting should begin by checking whether the touchpad has been disabled using the laptop settings or function keys. Check the operating-system touchpad settings and confirm that the device is enabled. Next, check the touchpad device and driver status. Restart the laptop and test the touchpad again. If the touchpad is still not responding, inspect the hardware for possible physical or connectivity problems. If these checks do not resolve the issue, additional hardware or driver investigation is required."
+    },
+    {
+        "id": 11,
+        "category": "Software",
+        "subcategory": "Browser crashing",
+        "priority": "Low",
+        "title": "Browser crashing Troubleshooting Guide",
+        "content": "This guide covers Browser crashing. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 12,
+        "category": "Security",
+        "subcategory": "Suspicious ARP spoofing",
+        "priority": "Critical",
+        "title": "Suspicious ARP spoofing Troubleshooting Guide",
+        "content": "This guide covers Suspicious ARP spoofing. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 13,
+        "category": "Software",
+        "subcategory": "Application crash on VM shutdown",
+        "priority": "Critical",
+        "title": "Application crash on VM shutdown Troubleshooting Guide",
+        "content": "This guide covers Application crash on VM shutdown. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 14,
+        "category": "Software",
+        "subcategory": "Macro execution error",
+        "priority": "Low",
+        "title": "Macro execution error Troubleshooting Guide",
+        "content": "This guide covers Macro execution error. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 15,
+        "category": "Hardware",
+        "subcategory": "Laptop screen dim",
+        "priority": "Low",
+        "title": "Laptop screen dim Troubleshooting Guide",
+        "content": "This guide covers Laptop screen dim. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 16,
+        "category": "Hardware",
+        "subcategory": "Headset mic not working",
+        "priority": "Critical",
+        "title": "Headset mic not working Troubleshooting Guide",
+        "content": "This guide covers Headset mic not working. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 17,
+        "category": "Security",
+        "subcategory": "Suspicious login location",
+        "priority": "Low",
+        "title": "Suspicious login location Troubleshooting Guide",
+        "content": "This guide covers Suspicious login location. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 18,
+        "category": "Network",
+        "subcategory": "Network compliance violation",
+        "priority": "Low",
+        "title": "Network compliance violation Troubleshooting Guide",
+        "content": "This guide covers Network compliance violation. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 19,
+        "category": "Access",
+        "subcategory": "Access denied by endpoint policy",
+        "priority": "Medium",
+        "title": "Access denied by endpoint policy Troubleshooting Guide",
+        "content": "This guide covers Access denied by endpoint policy. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 20,
+        "category": "Software",
+        "subcategory": "Service not starting",
+        "priority": "Critical",
+        "title": "Service not starting Troubleshooting Guide",
+        "content": "This guide covers Service not starting. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 21,
+        "category": "Software",
+        "subcategory": "Cache corruption",
+        "priority": "Critical",
+        "title": "Cache corruption Troubleshooting Guide",
+        "content": "This guide covers Cache corruption. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 22,
+        "category": "Network",
+        "subcategory": "Network blackhole routing",
+        "priority": "Medium",
+        "title": "Network blackhole routing Troubleshooting Guide",
+        "content": "This guide covers Network blackhole routing. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 23,
+        "category": "Security",
+        "subcategory": "Suspicious SIEM alert",
+        "priority": "High",
+        "title": "Suspicious SIEM alert Troubleshooting Guide",
+        "content": "This guide covers Suspicious SIEM alert. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 24,
+        "category": "Security",
+        "subcategory": "Suspicious supply chain attack",
+        "priority": "Critical",
+        "title": "Suspicious supply chain attack Troubleshooting Guide",
+        "content": "This guide covers Suspicious supply chain attack. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 25,
+        "category": "Security",
+        "subcategory": "Suspicious ISO violation",
+        "priority": "High",
+        "title": "Suspicious ISO violation Troubleshooting Guide",
+        "content": "This guide covers Suspicious ISO violation. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 26,
+        "category": "Hardware",
+        "subcategory": "USB hub not recognized",
+        "priority": "High",
+        "title": "USB hub not recognized Troubleshooting Guide",
+        "content": "This guide covers USB hub not recognized. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 27,
+        "category": "Access",
+        "subcategory": "Email account disabled",
+        "priority": "Critical",
+        "title": "Email account disabled Troubleshooting Guide",
+        "content": "This guide covers Email account disabled. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 28,
+        "category": "Access",
+        "subcategory": "Access denied by vendor policy",
+        "priority": "Critical",
+        "title": "Access denied by vendor policy Troubleshooting Guide",
+        "content": "This guide covers Access denied by vendor policy. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 29,
+        "category": "Software",
+        "subcategory": "Application crash on test",
+        "priority": "Low",
+        "title": "Application crash on test Troubleshooting Guide",
+        "content": "This guide covers Application crash on test. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 30,
+        "category": "Software",
+        "subcategory": "Configuration file missing",
+        "priority": "Medium",
+        "title": "Configuration file missing Troubleshooting Guide",
+        "content": "This guide covers Configuration file missing. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 31,
+        "category": "Hardware",
+        "subcategory": "Laptop touch screen not working",
+        "priority": "Low",
+        "title": "Laptop touch screen not working Troubleshooting Guide",
+        "content": "This guide covers Laptop touch screen not working. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 32,
+        "category": "Security",
+        "subcategory": "Unauthorized access attempt",
+        "priority": "Low",
+        "title": "Unauthorized access attempt Troubleshooting Guide",
+        "content": "This guide covers Unauthorized access attempt. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 33,
+        "category": "Network",
+        "subcategory": "Network IDS alert",
+        "priority": "High",
+        "title": "Network IDS alert Troubleshooting Guide",
+        "content": "This guide covers Network IDS alert. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 34,
+        "category": "Security",
+        "subcategory": "Suspicious JWT token use",
+        "priority": "Critical",
+        "title": "Suspicious JWT token use Troubleshooting Guide",
+        "content": "This guide covers Suspicious JWT token use. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 35,
+        "category": "Software",
+        "subcategory": "Application crash on VM deployment",
+        "priority": "High",
+        "title": "Application crash on VM deployment Troubleshooting Guide",
+        "content": "This guide covers Application crash on VM deployment. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 36,
+        "category": "Hardware",
+        "subcategory": "Peripheral device failure",
+        "priority": "Medium",
+        "title": "Peripheral device failure Troubleshooting Guide",
+        "content": "This guide covers Peripheral device failure. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 37,
+        "category": "Security",
+        "subcategory": "Suspicious mobile device alert",
+        "priority": "Critical",
+        "title": "Suspicious mobile device alert Troubleshooting Guide",
+        "content": "This guide covers Suspicious mobile device alert. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 38,
+        "category": "Software",
+        "subcategory": "Plugin not loading",
+        "priority": "Critical",
+        "title": "Plugin not loading Troubleshooting Guide",
+        "content": "This guide covers Plugin not loading. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 39,
+        "category": "Software",
+        "subcategory": "Application crash on automation",
+        "priority": "Low",
+        "title": "Application crash on automation Troubleshooting Guide",
+        "content": "This guide covers Application crash on automation. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 40,
+        "category": "Security",
+        "subcategory": "Suspicious session hijack",
+        "priority": "Critical",
+        "title": "Suspicious session hijack Troubleshooting Guide",
+        "content": "This guide covers Suspicious session hijack. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 41,
+        "category": "Hardware",
+        "subcategory": "Loose cable connection",
+        "priority": "Medium",
+        "title": "Loose cable connection Troubleshooting Guide",
+        "content": "This guide covers Loose cable connection. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 42,
+        "category": "Network",
+        "subcategory": "Hotspot not working",
+        "priority": "Medium",
+        "title": "Hotspot not working Troubleshooting Guide",
+        "content": "This guide covers Hotspot not working. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 43,
+        "category": "Access",
+        "subcategory": "Access denied by geolocation policy",
+        "priority": "Medium",
+        "title": "Access denied by geolocation policy Troubleshooting Guide",
+        "content": "This guide covers Access denied by geolocation policy. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 44,
+        "category": "Software",
+        "subcategory": "Antivirus not updating",
+        "priority": "Low",
+        "title": "Antivirus not updating Troubleshooting Guide",
+        "content": "This guide covers Antivirus not updating. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 45,
+        "category": "Hardware",
+        "subcategory": "Laptop BIOS corrupted",
+        "priority": "Low",
+        "title": "Laptop BIOS corrupted Troubleshooting Guide",
+        "content": "This guide covers Laptop BIOS corrupted. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 46,
+        "category": "Hardware",
+        "subcategory": "Laptop screen hinge broken",
+        "priority": "High",
+        "title": "Laptop screen hinge broken Troubleshooting Guide",
+        "content": "This guide covers Laptop screen hinge broken. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 47,
+        "category": "Hardware",
+        "subcategory": "Desktop won\u2019t boot",
+        "priority": "High",
+        "title": "Desktop won\u2019t boot Troubleshooting Guide",
+        "content": "This guide covers Desktop won\u2019t boot. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 48,
+        "category": "Security",
+        "subcategory": "Suspicious custom policy violation",
+        "priority": "Critical",
+        "title": "Suspicious custom policy violation Troubleshooting Guide",
+        "content": "This guide covers Suspicious custom policy violation. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 49,
+        "category": "Hardware",
+        "subcategory": "USB port not working",
+        "priority": "High",
+        "title": "USB port not working Troubleshooting Guide",
+        "content": "This guide covers USB port not working. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 50,
+        "category": "Security",
+        "subcategory": "Suspicious backdoor detected",
+        "priority": "High",
+        "title": "Suspicious backdoor detected Troubleshooting Guide",
+        "content": "This guide covers Suspicious backdoor detected. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 51,
+        "category": "Hardware",
+        "subcategory": "Laptop screen white screen",
+        "priority": "High",
+        "title": "Laptop screen white screen Troubleshooting Guide",
+        "content": "This guide covers Laptop screen white screen. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 52,
+        "category": "Security",
+        "subcategory": "Zero-day exploit",
+        "priority": "Critical",
+        "title": "Zero-day exploit Troubleshooting Guide",
+        "content": "This guide covers Zero-day exploit. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 53,
+        "category": "Security",
+        "subcategory": "Suspicious compliance violation",
+        "priority": "Low",
+        "title": "Suspicious compliance violation Troubleshooting Guide",
+        "content": "This guide covers Suspicious compliance violation. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 54,
+        "category": "Access",
+        "subcategory": "Access denied by SaaS provider",
+        "priority": "Low",
+        "title": "Access denied by SaaS provider Troubleshooting Guide",
+        "content": "This guide covers Access denied by SaaS provider. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 55,
+        "category": "Hardware",
+        "subcategory": "Laptop motherboard short circuit",
+        "priority": "High",
+        "title": "Laptop motherboard short circuit Troubleshooting Guide",
+        "content": "This guide covers Laptop motherboard short circuit. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 56,
+        "category": "Software",
+        "subcategory": "Email client not syncing",
+        "priority": "Critical",
+        "title": "Email client not syncing Troubleshooting Guide",
+        "content": "This guide covers Email client not syncing. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 57,
+        "category": "Software",
+        "subcategory": "Application not responding",
+        "priority": "High",
+        "title": "Application not responding Troubleshooting Guide",
+        "content": "This guide covers Application not responding. First check whether the application is still processing an operation or has become unresponsive. Wait briefly and test again. If it remains unresponsive, restart the application. Check available system resources and application settings. Verify that the application and its required components are properly installed and updated. If the issue continues, review relevant application logs and investigate further."
+    },
+    {
+        "id": 58,
+        "category": "Software",
+        "subcategory": "Database connection error",
+        "priority": "Low",
+        "title": "Database connection error Troubleshooting Guide",
+        "content": "This guide covers Database connection error. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 59,
+        "category": "Software",
+        "subcategory": "Application crash on framework",
+        "priority": "Low",
+        "title": "Application crash on framework Troubleshooting Guide",
+        "content": "This guide covers Application crash on framework. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 60,
+        "category": "Network",
+        "subcategory": "SSID not visible",
+        "priority": "High",
+        "title": "SSID not visible Troubleshooting Guide",
+        "content": "This guide covers SSID not visible. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 61,
+        "category": "Access",
+        "subcategory": "Access denied by mobile device policy",
+        "priority": "Medium",
+        "title": "Access denied by mobile device policy Troubleshooting Guide",
+        "content": "This guide covers Access denied by mobile device policy. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 62,
+        "category": "Software",
+        "subcategory": "Registry error",
+        "priority": "Low",
+        "title": "Registry error Troubleshooting Guide",
+        "content": "This guide covers Registry error. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 63,
+        "category": "Hardware",
+        "subcategory": "Laptop screen orange tint",
+        "priority": "Low",
+        "title": "Laptop screen orange tint Troubleshooting Guide",
+        "content": "This guide covers Laptop screen orange tint. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 64,
+        "category": "Hardware",
+        "subcategory": "Laptop casing cracked",
+        "priority": "Critical",
+        "title": "Laptop casing cracked Troubleshooting Guide",
+        "content": "This guide covers Laptop casing cracked. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 65,
+        "category": "Hardware",
+        "subcategory": "Hard drive crash",
+        "priority": "Low",
+        "title": "Hard drive crash Troubleshooting Guide",
+        "content": "This guide covers Hard drive crash. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 66,
+        "category": "Hardware",
+        "subcategory": "Fan noise issue",
+        "priority": "Critical",
+        "title": "Fan noise issue Troubleshooting Guide",
+        "content": "This guide covers Fan noise issue. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 67,
+        "category": "Network",
+        "subcategory": "Network driver outdated",
+        "priority": "Low",
+        "title": "Network driver outdated Troubleshooting Guide",
+        "content": "This guide covers Network driver outdated. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 68,
+        "category": "Access",
+        "subcategory": "Kerberos ticket expired",
+        "priority": "High",
+        "title": "Kerberos ticket expired Troubleshooting Guide",
+        "content": "This guide covers Kerberos ticket expired. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 69,
+        "category": "Hardware",
+        "subcategory": "Monitor flickering",
+        "priority": "High",
+        "title": "Monitor flickering Troubleshooting Guide",
+        "content": "This guide covers Monitor flickering. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 70,
+        "category": "Network",
+        "subcategory": "Network MTU mismatch",
+        "priority": "Medium",
+        "title": "Network MTU mismatch Troubleshooting Guide",
+        "content": "This guide covers Network MTU mismatch. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 71,
+        "category": "Network",
+        "subcategory": "Network collision detected",
+        "priority": "High",
+        "title": "Network collision detected Troubleshooting Guide",
+        "content": "This guide covers Network collision detected. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 72,
+        "category": "Software",
+        "subcategory": "Software timeout",
+        "priority": "Medium",
+        "title": "Software timeout Troubleshooting Guide",
+        "content": "This guide covers Software timeout. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 73,
+        "category": "Software",
+        "subcategory": "Licensing issue",
+        "priority": "Critical",
+        "title": "Licensing issue Troubleshooting Guide",
+        "content": "This guide covers Licensing issue. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 74,
+        "category": "Hardware",
+        "subcategory": "Hardware driver missing",
+        "priority": "Low",
+        "title": "Hardware driver missing Troubleshooting Guide",
+        "content": "This guide covers Hardware driver missing. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 75,
+        "category": "Access",
+        "subcategory": "Access denied by API",
+        "priority": "Low",
+        "title": "Access denied by API Troubleshooting Guide",
+        "content": "This guide covers Access denied by API. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 76,
+        "category": "Software",
+        "subcategory": "Application crash on logout",
+        "priority": "Low",
+        "title": "Application crash on logout Troubleshooting Guide",
+        "content": "This guide covers Application crash on logout. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 77,
+        "category": "Access",
+        "subcategory": "Access denied by conditional access",
+        "priority": "Critical",
+        "title": "Access denied by conditional access Troubleshooting Guide",
+        "content": "This guide covers Access denied by conditional access. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 78,
+        "category": "Access",
+        "subcategory": "Access denied by password policy",
+        "priority": "Medium",
+        "title": "Access denied by password policy Troubleshooting Guide",
+        "content": "This guide covers Access denied by password policy. First identify the affected user account and the resource the user is trying to access. Verify that the credentials are entered correctly. Check whether the account is active and whether it has the required permissions. Check for account restrictions or authentication problems. Retry the login or access operation after correcting any identified issue. If access remains unavailable, additional account or permission investigation is required."
+    },
+    {
+        "id": 79,
+        "category": "Network",
+        "subcategory": "Network PAT misconfigured",
+        "priority": "High",
+        "title": "Network PAT misconfigured Troubleshooting Guide",
+        "content": "This guide covers Network PAT misconfigured. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 80,
+        "category": "Network",
+        "subcategory": "Network tunneling error",
+        "priority": "Low",
+        "title": "Network tunneling error Troubleshooting Guide",
+        "content": "This guide covers Network tunneling error. First verify that the affected device is connected to the correct network. Check the network adapter and confirm that the device has a valid network configuration. Test connectivity to the required service or destination. Restart the network connection and test again. If the problem continues, compare the affected device with a working device and investigate network configuration or infrastructure problems."
+    },
+    {
+        "id": 81,
+        "category": "Security",
+        "subcategory": "Suspicious contractor compromise",
+        "priority": "Medium",
+        "title": "Suspicious contractor compromise Troubleshooting Guide",
+        "content": "This guide covers Suspicious contractor compromise. Identify the affected account, device, or network activity. Review available security and authentication logs for unusual activity. Check for unexpected processes, connections, or access attempts. Preserve relevant information for further investigation. Do not assume the cause without sufficient evidence. If suspicious activity remains present or indicates a possible security incident, additional security investigation is required."
+    },
+    {
+        "id": 82,
+        "category": "Software",
+        "subcategory": "Application crash on workflow",
+        "priority": "Low",
+        "title": "Application crash on workflow Troubleshooting Guide",
+        "content": "This guide covers Application crash on workflow. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    },
+    {
+        "id": 83,
+        "category": "Software",
+        "subcategory": "Slow application performance",
+        "priority": "Critical",
+        "title": "Slow application performance Troubleshooting Guide",
+        "content": "This guide covers Slow application performance. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 84,
+        "category": "Hardware",
+        "subcategory": "Laptop screen resolution error",
+        "priority": "High",
+        "title": "Laptop screen resolution error Troubleshooting Guide",
+        "content": "This guide covers Laptop screen resolution error. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 85,
+        "category": "Software",
+        "subcategory": "Unsupported operating system version",
+        "priority": "Medium",
+        "title": "Unsupported operating system version Troubleshooting Guide",
+        "content": "This guide covers Unsupported operating system version. Begin by reproducing the reported problem and identifying the affected system or component. Check relevant configuration, connectivity, permissions, software components, and system status where applicable. Review available error messages or logs. Restart the affected component and test again. If the problem continues, additional investigation is required."
+    },
+    {
+        "id": 86,
+        "category": "Hardware",
+        "subcategory": "Laptop screen black screen",
+        "priority": "Low",
+        "title": "Laptop screen black screen Troubleshooting Guide",
+        "content": "This guide covers Laptop screen black screen. First check the display brightness and operating-system display settings. Verify that the display is receiving power and that the display connection is secure when applicable. Restart the computer and test the display again. Check the graphics or display driver status if the problem continues. Look for visible physical damage to the display. If the display remains abnormal after these checks, additional hardware or display-driver investigation is required."
+    },
+    {
+        "id": 87,
+        "category": "Software",
+        "subcategory": "Application crash on build",
+        "priority": "Medium",
+        "title": "Application crash on build Troubleshooting Guide",
+        "content": "This guide covers Application crash on build. Reproduce the problem and record any error message generated when the application crashes. Restart the application and test again. Check whether the application is updated and whether the system meets its requirements. Review application settings and relevant error logs. If the application continues to crash, additional software or dependency investigation is required."
+    }
+]

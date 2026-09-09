@@ -1,0 +1,101 @@
+Ticket_ID,Actual_Category,Actual_Subcategory,Retrieved_Category,Retrieved_Subcategory,Score,Correct
+987232,Network,Network ACL blocking,Network,Network ACL blocking,0.984,True
+79955,Security,Suspicious third-party compromise,Security,Suspicious third-party compromise,0.9854,True
+567131,Software,Mobile app not installing,Software,Mobile app not installing,0.9905,True
+500892,Network,Switch port failure,Network,Switch port failure,0.9851,True
+55400,Hardware,Laptop screen burn-in,Hardware,Laptop screen burn-in,0.9463,True
+135050,Network,Network port scanning detected,Network,Network port scanning detected,1.0342,True
+733379,Software,Application deadlock,Software,Application deadlock,0.9069,True
+732058,Software,Cloud sync failure,Software,Cloud sync failure,0.9921,True
+51334,Software,Mobile app not installing,Software,Mobile app not installing,0.9905,True
+731480,Security,Suspicious admin activity,Security,Suspicious admin activity,0.981,True
+399759,Hardware,Touchpad not responding,Hardware,Touchpad not responding,0.9327,True
+401398,Software,Browser crashing,Software,Browser crashing,0.9012,True
+855486,Security,Suspicious ARP spoofing,Security,Suspicious ARP spoofing,0.9811,True
+858885,Software,Application crash on VM shutdown,Software,Application crash on VM shutdown,1.0405,True
+503248,Software,Macro execution error,Software,Macro execution error,0.9913,True
+864742,Hardware,Laptop screen dim,Hardware,Laptop screen dim,0.9463,True
+35033,Hardware,Headset mic not working,Hardware,Headset mic not working,1.0158,True
+995704,Hardware,Touchpad not responding,Hardware,Touchpad not responding,0.9327,True
+376762,Security,Suspicious login location,Security,Suspicious login location,0.9821,True
+811354,Network,Network compliance violation,Network,Network compliance violation,0.9799,True
+577746,Access,Access denied by endpoint policy,Access,Access denied by endpoint policy,1.0534,True
+659807,Software,Macro execution error,Software,Macro execution error,0.9913,True
+219340,Software,Service not starting,Software,Service not starting,0.941,True
+979756,Software,Cache corruption,Software,Cache corruption,0.9134,True
+625692,Network,Network blackhole routing,Network,Network blackhole routing,0.984,True
+215340,Security,Suspicious SIEM alert,Security,Suspicious SIEM alert,0.986,True
+443418,Security,Suspicious supply chain attack,Security,Suspicious supply chain attack,1.0315,True
+980329,Security,Suspicious ISO violation,Security,Suspicious ISO violation,0.989,True
+336984,Hardware,USB hub not recognized,Hardware,USB hub not recognized,1.0161,True
+518813,Software,Application deadlock,Software,Application deadlock,0.9069,True
+943379,Access,Email account disabled,Access,Email account disabled,0.9751,True
+2086,Access,Access denied by vendor policy,Access,Access denied by vendor policy,1.0534,True
+663616,Software,Application crash on test,Software,Application crash on test,0.9855,True
+677815,Software,Configuration file missing,Software,Configuration file missing,0.9889,True
+957738,Hardware,Laptop touch screen not working,Hardware,Laptop touch screen not working,1.0352,True
+543083,Security,Unauthorized access attempt,Security,Unauthorized access attempt,0.9708,True
+529928,Network,Network IDS alert,Network,Network IDS alert,0.9852,True
+66337,Security,Suspicious JWT token use,Security,Suspicious JWT token use,1.0315,True
+272967,Software,Application crash on VM deployment,Software,Application crash on VM deployment,1.0405,True
+876376,Hardware,Peripheral device failure,Hardware,Peripheral device failure,0.9853,True
+443182,Security,Suspicious mobile device alert,Security,Suspicious mobile device alert,1.0277,True
+38748,Software,Plugin not loading,Software,Plugin not loading,0.9456,True
+244519,Software,Application crash on automation,Software,Application crash on automation,0.9898,True
+321942,Security,Suspicious session hijack,Security,Suspicious session hijack,0.9811,True
+212424,Hardware,Loose cable connection,Hardware,Loose cable connection,0.9745,True
+684488,Network,Hotspot not working,Network,Hotspot not working,0.936,True
+460022,Access,Access denied by geolocation policy,Access,Access denied by geolocation policy,1.0534,True
+330798,Software,Antivirus not updating,Software,Antivirus not updating,0.9456,True
+820288,Hardware,Laptop BIOS corrupted,Hardware,Laptop BIOS corrupted,0.9934,True
+934969,Hardware,Laptop screen hinge broken,Hardware,Laptop screen hinge broken,1.0086,True
+878903,Hardware,Desktop won’t boot,Hardware,Desktop won’t boot,0.9903,True
+507015,Security,Suspicious custom policy violation,Security,Suspicious custom policy violation,1.0343,True
+63469,Hardware,USB port not working,Hardware,USB port not working,1.012,True
+568671,Security,Suspicious backdoor detected,Security,Suspicious backdoor detected,0.9822,True
+855772,Hardware,Laptop screen white screen,Hardware,Laptop screen white screen,1.0191,True
+606373,Security,Zero-day exploit,Security,Zero-day exploit,0.957,True
+358901,Security,Suspicious compliance violation,Security,Suspicious compliance violation,0.983,True
+178393,Access,Access denied by SaaS provider,Access,Access denied by SaaS provider,1.0437,True
+921915,Hardware,Laptop motherboard short circuit,Hardware,Laptop motherboard short circuit,1.0416,True
+348366,Software,Email client not syncing,Software,Email client not syncing,1.0135,True
+377483,Software,Application not responding,Software,Application not responding,0.9212,True
+44793,Software,Database connection error,Software,Database connection error,0.9733,True
+690928,Hardware,Laptop motherboard short circuit,Hardware,Laptop motherboard short circuit,1.0416,True
+50314,Software,Application crash on framework,Software,Application crash on framework,0.9898,True
+780882,Network,SSID not visible,Network,SSID not visible,0.938,True
+18959,Access,Access denied by mobile device policy,Access,Access denied by mobile device policy,1.0798,True
+804704,Software,Registry error,Software,Registry error,0.9065,True
+8986,Hardware,Laptop screen orange tint,Hardware,Laptop screen orange tint,1.0086,True
+99902,Hardware,Laptop casing cracked,Hardware,Laptop casing cracked,0.9934,True
+655319,Hardware,Hard drive crash,Hardware,Hard drive crash,0.9714,True
+224929,Hardware,Fan noise issue,Hardware,Fan noise issue,0.9895,True
+926626,Software,Email client not syncing,Software,Email client not syncing,1.0135,True
+67899,Network,Network driver outdated,Network,Network driver outdated,0.9793,True
+68879,Network,Network port scanning detected,Network,Network port scanning detected,1.0342,True
+904485,Software,Email client not syncing,Software,Email client not syncing,1.0135,True
+244300,Access,Kerberos ticket expired,Access,Kerberos ticket expired,0.9877,True
+912238,Hardware,Monitor flickering,Hardware,Monitor flickering,0.8869,True
+803685,Network,Network MTU mismatch,Network,Network MTU mismatch,0.984,True
+444937,Network,Network collision detected,Network,Network collision detected,0.9888,True
+895959,Software,Software timeout,Software,Software timeout,0.8886,True
+858829,Software,Licensing issue,Software,Licensing issue,0.9084,True
+575348,Hardware,Hardware driver missing,Hardware,Hardware driver missing,0.9764,True
+464017,Access,Access denied by API,Access,Access denied by API,0.9919,True
+196830,Software,Application crash on logout,Software,Application crash on logout,0.9898,True
+309024,Access,Access denied by conditional access,Access,Access denied by conditional access,1.0438,True
+347382,Access,Access denied by password policy,Access,Access denied by password policy,1.0534,True
+310805,Security,Suspicious JWT token use,Security,Suspicious JWT token use,1.0315,True
+837524,Network,Network PAT misconfigured,Network,Network PAT misconfigured,0.984,True
+268241,Network,Network tunneling error,Network,Network tunneling error,0.9837,True
+366138,Software,Mobile app not installing,Software,Mobile app not installing,0.9905,True
+449597,Security,Suspicious contractor compromise,Security,Suspicious contractor compromise,0.9854,True
+586918,Software,Application crash on workflow,Software,Application crash on workflow,0.9898,True
+980754,Software,Slow application performance,Software,Slow application performance,0.9806,True
+51663,Hardware,Laptop screen resolution error,Hardware,Laptop screen resolution error,1.0087,True
+892874,Software,Application crash on VM deployment,Software,Application crash on VM deployment,1.0405,True
+576799,Software,Unsupported operating system version,Software,Unsupported operating system version,1.0133,True
+480867,Software,Mobile app not installing,Software,Mobile app not installing,0.9905,True
+550671,Hardware,Laptop screen black screen,Hardware,Laptop screen black screen,1.0191,True
+584292,Software,Application crash on build,Software,Application crash on build,0.9898,True
+362132,Software,Macro execution error,Software,Macro execution error,0.9913,True
