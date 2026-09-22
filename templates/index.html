@@ -992,6 +992,153 @@
         }
 
 
+
+        /* ==========================================
+           MILESTONE 3 - MULTI-AGENT WORKFLOW
+        ========================================== */
+
+        .multi-agent-container {
+            margin-bottom: 30px;
+        }
+
+        .agent-intro {
+            margin: -8px 0 20px;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .agent-card {
+            background: #f8faff;
+            border: 1px solid #dce6f5;
+            border-radius: 11px;
+            padding: 16px 12px;
+            text-align: center;
+            min-height: 150px;
+        }
+
+        .agent-icon {
+            width: 38px;
+            height: 38px;
+            margin: 0 auto 9px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eaf1ff;
+            color: #2563eb;
+            font-size: 17px;
+        }
+
+        .agent-card h4 {
+            margin: 3px 0 7px;
+            color: #173b91;
+            font-size: 12px;
+        }
+
+        .agent-status {
+            font-size: 11px;
+            color: #475569;
+            line-height: 1.45;
+            min-height: 32px;
+        }
+
+        .agent-value {
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 750;
+            color: #2455d8;
+        }
+
+        .agent-decision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 5px;
+        }
+
+        .decision-box {
+            padding: 16px;
+            border-radius: 10px;
+            background: #f8faff;
+            border: 1px solid #dce6f5;
+        }
+
+        .decision-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .decision-value {
+            font-size: 17px;
+            font-weight: 800;
+            color: #173b91;
+            word-break: break-word;
+        }
+
+        .integration-status {
+            margin-top: 12px;
+            padding: 13px 15px;
+            border-radius: 9px;
+            background: white;
+            border: 1px solid #dce6f5;
+            color: #475569;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .integration-status strong {
+            color: #173b91;
+        }
+
+        .status-success {
+            color: #166534;
+            font-weight: 750;
+        }
+
+        .status-warning {
+            color: #92400e;
+            font-weight: 750;
+        }
+
+        .status-danger {
+            color: #991b1b;
+            font-weight: 750;
+        }
+
+        @media (max-width: 1050px) {
+            .agent-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .agent-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .agent-decision {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .agent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
         /* ==========================================
            AI RESOLUTION
         ========================================== */
@@ -2153,6 +2300,238 @@
 
 
             <!-- ======================================
+                 MILESTONE 3 - MULTI-AGENT WORKFLOW
+            ====================================== -->
+
+            <div class="multi-agent-container">
+
+                <div class="section-heading">
+
+                    <div class="heading-icon">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Multi-Agent Resolution Workflow
+                        </h2>
+
+                        <p>
+                            Specialized AI agents collaborate to
+                            diagnose, retrieve, resolve, validate,
+                            and escalate support tickets.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <p class="agent-intro">
+                    Each agent performs a separate task. The
+                    Validation Agent decides whether the ticket
+                    can be automatically resolved or should be
+                    escalated to Jira.
+                </p>
+
+
+                <div class="agent-grid">
+
+                    <div class="agent-card">
+
+                        <div class="agent-icon">
+                            🧠
+                        </div>
+
+                        <h4>
+                            Diagnosis Agent
+                        </h4>
+
+                        <div
+                            class="agent-status"
+                            id="agent-diagnosis"
+                        >
+                            Waiting...
+                        </div>
+
+                        <div
+                            class="agent-value"
+                            id="agent-diagnosis-confidence"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="agent-card">
+
+                        <div class="agent-icon">
+                            🔍
+                        </div>
+
+                        <h4>
+                            Retrieval Agent
+                        </h4>
+
+                        <div
+                            class="agent-status"
+                            id="agent-retrieval"
+                        >
+                            Waiting...
+                        </div>
+
+                        <div
+                            class="agent-value"
+                            id="agent-retrieval-score"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="agent-card">
+
+                        <div class="agent-icon">
+                            📝
+                        </div>
+
+                        <h4>
+                            Resolution Agent
+                        </h4>
+
+                        <div
+                            class="agent-status"
+                            id="agent-resolution"
+                        >
+                            Waiting...
+                        </div>
+
+                        <div
+                            class="agent-value"
+                            id="agent-resolution-steps"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="agent-card">
+
+                        <div class="agent-icon">
+                            ✅
+                        </div>
+
+                        <h4>
+                            Validation Agent
+                        </h4>
+
+                        <div
+                            class="agent-status"
+                            id="agent-validation"
+                        >
+                            Waiting...
+                        </div>
+
+                        <div
+                            class="agent-value"
+                            id="agent-validation-confidence"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="agent-card">
+
+                        <div class="agent-icon">
+                            🚨
+                        </div>
+
+                        <h4>
+                            Escalation Agent
+                        </h4>
+
+                        <div
+                            class="agent-status"
+                            id="agent-escalation"
+                        >
+                            Waiting...
+                        </div>
+
+                        <div
+                            class="agent-value"
+                            id="agent-escalation-value"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="agent-decision">
+
+                    <div class="decision-box">
+
+                        <div class="decision-label">
+                            Final Workflow Decision
+                        </div>
+
+                        <div
+                            class="decision-value"
+                            id="agent-final-status"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+
+                    <div class="decision-box">
+
+                        <div class="decision-label">
+                            Validation Confidence
+                        </div>
+
+                        <div
+                            class="decision-value"
+                            id="agent-final-confidence"
+                        >
+                            -
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="integration-status"
+                    id="jira-status"
+                >
+                    <strong>🎫 Jira Integration:</strong>
+                    Waiting for workflow result...
+                </div>
+
+
+                <div
+                    class="integration-status"
+                    id="email-status"
+                >
+                    <strong>📧 Email Automation:</strong>
+                    Waiting for workflow result...
+                </div>
+
+            </div>
+
+
+
+            <!-- ======================================
                  AI RESOLUTION
             ====================================== -->
 
@@ -2533,6 +2912,13 @@
                 );
 
 
+                displayMultiAgent(
+                    result.multi_agent ||
+                    result.multi_agent_workflow ||
+                    {}
+                );
+
+
                 document.getElementById(
                     "resolution"
                 ).innerHTML =
@@ -2658,6 +3044,272 @@
                     : "Completed";
 
         }
+
+
+
+        // ==========================================
+        // MILESTONE 3 - MULTI-AGENT WORKFLOW
+        // ==========================================
+
+        function displayMultiAgent(workflow) {
+
+            if (!workflow || Object.keys(workflow).length === 0) {
+
+                return;
+
+            }
+
+
+            const diagnosis =
+                workflow.diagnosis || {};
+
+            const retrieval =
+                workflow.retrieval || {};
+
+            const resolution =
+                workflow.resolution || {};
+
+            const validation =
+                workflow.validation || {};
+
+            const escalation =
+                workflow.escalation;
+
+            const jira =
+                workflow.jira || {};
+
+            const email =
+                workflow.email || {};
+
+
+            // ------------------------------------------
+            // DIAGNOSIS AGENT
+            // ------------------------------------------
+
+            document.getElementById(
+                "agent-diagnosis"
+            ).textContent =
+                diagnosis.category ||
+                diagnosis.diagnosis ||
+                "Completed";
+
+
+            document.getElementById(
+                "agent-diagnosis-confidence"
+            ).textContent =
+                diagnosis.confidence !== undefined
+                    ? "Confidence: " +
+                      (Number(diagnosis.confidence) * 100).toFixed(0) +
+                      "%"
+                    : "-";
+
+
+            // ------------------------------------------
+            // RETRIEVAL AGENT
+            // ------------------------------------------
+
+            const article =
+                retrieval.article || {};
+
+            document.getElementById(
+                "agent-retrieval"
+            ).textContent =
+                article.title ||
+                "Knowledge article retrieved";
+
+
+            document.getElementById(
+                "agent-retrieval-score"
+            ).textContent =
+                retrieval.similarity !== undefined
+                    ? "Similarity: " +
+                      (Number(retrieval.similarity) * 100).toFixed(2) +
+                      "%"
+                    : "-";
+
+
+            // ------------------------------------------
+            // RESOLUTION AGENT
+            // ------------------------------------------
+
+            const steps =
+                Array.isArray(resolution.steps)
+                    ? resolution.steps
+                    : [];
+
+
+            document.getElementById(
+                "agent-resolution"
+            ).textContent =
+                resolution.response ||
+                "Resolution generated";
+
+
+            document.getElementById(
+                "agent-resolution-steps"
+            ).textContent =
+                steps.length +
+                " troubleshooting step(s)";
+
+
+            // ------------------------------------------
+            // VALIDATION AGENT
+            // ------------------------------------------
+
+            const validationConfidence =
+                validation.confidence !== undefined
+                    ? Number(validation.confidence)
+                    : 0;
+
+            const validationStatus =
+                validation.status ||
+                "UNKNOWN";
+
+
+            document.getElementById(
+                "agent-validation"
+            ).textContent =
+                validationStatus;
+
+
+            document.getElementById(
+                "agent-validation-confidence"
+            ).textContent =
+                "Confidence: " +
+                (validationConfidence * 100).toFixed(0) +
+                "%";
+
+
+            // ------------------------------------------
+            // ESCALATION AGENT
+            // ------------------------------------------
+
+            const shouldEscalate =
+                escalation === true ||
+                validationStatus === "ESCALATE";
+
+
+            document.getElementById(
+                "agent-escalation"
+            ).textContent =
+                shouldEscalate
+                    ? "Human support escalation required"
+                    : "No escalation required";
+
+
+            document.getElementById(
+                "agent-escalation-value"
+            ).textContent =
+                shouldEscalate
+                    ? "ESCALATE"
+                    : "AUTO-RESOLVE";
+
+
+            // ------------------------------------------
+            // FINAL DECISION
+            // ------------------------------------------
+
+            document.getElementById(
+                "agent-final-status"
+            ).textContent =
+                validationStatus === "AUTO_RESOLVE"
+                    ? "AUTO-RESOLVE"
+                    : validationStatus === "ESCALATE"
+                        ? "ESCALATE TO HUMAN SUPPORT"
+                        : validationStatus;
+
+
+            document.getElementById(
+                "agent-final-confidence"
+            ).textContent =
+                (validationConfidence * 100).toFixed(0) +
+                "%";
+
+
+            // ------------------------------------------
+            // JIRA INTEGRATION
+            // ------------------------------------------
+
+            const jiraSuccess =
+                jira.success === true;
+
+            let jiraMessage =
+                jira.message ||
+                "Jira was not required.";
+
+            if (jiraSuccess && jira.issue_key) {
+
+                jiraMessage =
+                    "Issue created: " +
+                    jira.issue_key;
+
+                if (jira.issue_url) {
+
+                    jiraMessage +=
+                        " — " +
+                        jira.issue_url;
+
+                }
+
+            }
+
+
+            const jiraClass =
+                jiraSuccess
+                    ? "status-success"
+                    : shouldEscalate
+                        ? "status-danger"
+                        : "";
+
+
+            document.getElementById(
+                "jira-status"
+            ).innerHTML =
+                "<strong>🎫 Jira Integration:</strong> " +
+                "<span class='" +
+                jiraClass +
+                "'>" +
+                escapeHtml(jiraMessage) +
+                "</span>";
+
+
+            // ------------------------------------------
+            // EMAIL AUTOMATION
+            // ------------------------------------------
+
+            const emailSuccess =
+                email &&
+                email.success === true;
+
+            let emailMessage =
+                email
+                    ? (
+                        email.message ||
+                        "Email automation completed."
+                    )
+                    : "Email was not required.";
+
+
+            const emailClass =
+                emailSuccess
+                    ? "status-success"
+                    : shouldEscalate
+                        ? "status-warning"
+                        : "";
+
+
+            document.getElementById(
+                "email-status"
+            ).innerHTML =
+                "<strong>📧 Email Automation:</strong> " +
+                "<span class='" +
+                emailClass +
+                "'>" +
+                escapeHtml(emailMessage) +
+                "</span>";
+
+        }
+
 
 
 

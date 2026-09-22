@@ -1,37 +1,49 @@
-from flask import Flask, request, jsonify, render_template, redirect, make_response
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    render_template,
+    redirect,
+    make_response
+)
+
 import time
-from metrics import MetricsTracker
-import joblib
-import sqlite3
-from datetime import datetime, timedelta, timezone
 import os
+import sqlite3
+
+from datetime import datetime, timedelta, timezone
+from functools import wraps
+
+import joblib
 import pandas as pd
 import jwt
-from functools import wraps
+
 from dotenv import load_dotenv
 
+from metrics import MetricsTracker
 from severity_engine import determine_severity
 from priority_engine import determine_priority
 from rag.generator import ResolutionGenerator
+from agents import SupportPilot
 
 
-# ==========================================
+# =========================================================
 # LOAD ENVIRONMENT VARIABLES
-# ==========================================
+# =========================================================
 
 load_dotenv()
 
 
-# ==========================================
+# =========================================================
 # FLASK APPLICATION
-# ==========================================
+# =========================================================
 
 app = Flask(__name__)
 
 
-# ==========================================
+# =========================================================
 # JWT CONFIGURATION
-# ==========================================
+# =========================================================
 
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
@@ -42,13 +54,15 @@ if not JWT_SECRET_KEY:
     )
 
 JWT_ALGORITHM = "HS256"
+
 JWT_EXPIRATION_HOURS = 1
+
 JWT_COOKIE_NAME = "supportpilot_token"
 
 
-# ==========================================
+# =========================================================
 # JWT AUTHENTICATION DECORATOR
-# ==========================================
+# =========================================================
 
 def jwt_required(function):
 
@@ -61,16 +75,18 @@ def jwt_required(function):
 
         if not token:
 
-            # API requests should receive JSON
-            if request.path in ["/submit", "/feedback"]:
-
+            if request.path in [
+                "/submit",
+                "/feedback",
+                "/api/multi-agent"
+            ]:
                 return jsonify({
                     "error":
-                        "Authentication required. Please log in."
+                        "Authentication required. "
+                        "Please log in."
                 }), 401
 
             return redirect("/login")
-
 
         try:
 
@@ -80,55 +96,78 @@ def jwt_required(function):
                 algorithms=[JWT_ALGORITHM]
             )
 
-            # Store authenticated username
             request.current_user = payload.get(
                 "sub"
             )
 
         except jwt.ExpiredSignatureError:
 
-            if request.path in ["/submit", "/feedback"]:
-
+            if request.path in [
+                "/submit",
+                "/feedback",
+                "/api/multi-agent"
+            ]:
                 return jsonify({
                     "error":
-                        "Your session has expired. Please log in again."
+                        "Your session has expired. "
+                        "Please log in again."
                 }), 401
 
             return redirect("/login")
 
         except jwt.InvalidTokenError:
 
-            if request.path in ["/submit", "/feedback"]:
-
+            if request.path in [
+                "/submit",
+                "/feedback",
+                "/api/multi-agent"
+            ]:
                 return jsonify({
                     "error":
-                        "Invalid authentication token. Please log in again."
+                        "Invalid authentication token. "
+                        "Please log in again."
                 }), 401
 
             return redirect("/login")
-
 
         return function(*args, **kwargs)
 
     return decorated_function
 
 
-# ==========================================
+# =========================================================
 # LOAD AI MODEL
-# ==========================================
+# =========================================================
 
 model = joblib.load(
     "ticket_classifier.joblib"
 )
 
+
+# =========================================================
+# MILESTONE 2 RAG
+# =========================================================
+
 resolution_generator = ResolutionGenerator()
+
+
+# =========================================================
+# MILESTONE 3 MULTI-AGENT SYSTEM
+# =========================================================
+
+multi_agent_system = SupportPilot()
+
+
+# =========================================================
+# METRICS
+# =========================================================
 
 metrics_tracker = MetricsTracker()
 
 
-# ==========================================
+# =========================================================
 # LOAD REAL RETRIEVAL ACCURACY
-# ==========================================
+# =========================================================
 
 def load_retrieval_accuracy():
 
@@ -139,9 +178,7 @@ def load_retrieval_accuracy():
     if not os.path.exists(
         evaluation_file
     ):
-
         return 0
-
 
     try:
 
@@ -150,9 +187,7 @@ def load_retrieval_accuracy():
         )
 
         if len(df) == 0:
-
             return 0
-
 
         correct_retrievals = (
             df["Correct"]
@@ -162,21 +197,17 @@ def load_retrieval_accuracy():
             .sum()
         )
 
-
         total_tickets = len(df)
-
 
         accuracy = (
             correct_retrievals /
             total_tickets
         ) * 100
 
-
         return round(
             accuracy,
             1
         )
-
 
     except Exception as error:
 
@@ -188,15 +219,14 @@ def load_retrieval_accuracy():
         return 0
 
 
-# Load the actual evaluated accuracy
 RETRIEVAL_ACCURACY = (
     load_retrieval_accuracy()
 )
 
 
-# ==========================================
+# =========================================================
 # SAVE TICKET TO DATABASE
-# ==========================================
+# =========================================================
 
 def save_ticket(
     employee_name,
@@ -251,9 +281,9 @@ def save_ticket(
     return ticket_id
 
 
-# ==========================================
+# =========================================================
 # HOME PAGE
-# ==========================================
+# =========================================================
 
 @app.route("/")
 @jwt_required
@@ -264,9 +294,9 @@ def home():
     )
 
 
-# ==========================================
+# =========================================================
 # LOGIN
-# ==========================================
+# =========================================================
 
 @app.route(
     "/login",
@@ -284,43 +314,24 @@ def login():
             "password"
         )
 
-
-        # --------------------------------------
-        # CHECK LOGIN CREDENTIALS
-        # --------------------------------------
-
         if (
             username == "admin"
             and
             password == "admin123"
         ):
 
-            # ----------------------------------
-            # CREATE JWT PAYLOAD
-            # ----------------------------------
-
             now = datetime.now(
                 timezone.utc
             )
 
             payload = {
-
-                "sub":
-                    username,
-
-                "iat":
-                    now,
-
+                "sub": username,
+                "iat": now,
                 "exp":
                     now + timedelta(
                         hours=JWT_EXPIRATION_HOURS
                     )
             }
-
-
-            # ----------------------------------
-            # GENERATE JWT
-            # ----------------------------------
 
             token = jwt.encode(
                 payload,
@@ -328,32 +339,16 @@ def login():
                 algorithm=JWT_ALGORITHM
             )
 
-
-            # ----------------------------------
-            # REDIRECT TO DASHBOARD
-            # ----------------------------------
-
             response = make_response(
                 redirect("/")
             )
 
-
-            # ----------------------------------
-            # STORE JWT IN HTTPONLY COOKIE
-            # ----------------------------------
-
             response.set_cookie(
-
                 JWT_COOKIE_NAME,
-
                 token,
-
                 httponly=True,
-
                 secure=False,
-
                 samesite="Lax",
-
                 max_age=(
                     JWT_EXPIRATION_HOURS *
                     60 *
@@ -361,9 +356,7 @@ def login():
                 )
             )
 
-
             return response
-
 
         else:
 
@@ -372,15 +365,14 @@ def login():
                 error="Invalid username or password"
             )
 
-
     return render_template(
         "login.html"
     )
 
 
-# ==========================================
+# =========================================================
 # LOGOUT
-# ==========================================
+# =========================================================
 
 @app.route("/logout")
 def logout():
@@ -396,9 +388,9 @@ def logout():
     return response
 
 
-# ==========================================
+# =========================================================
 # SUBMIT SUPPORT TICKET
-# ==========================================
+# =========================================================
 
 @app.route(
     "/submit",
@@ -408,6 +400,12 @@ def logout():
 def submit_ticket():
 
     data = request.get_json()
+
+    if not data:
+
+        return jsonify({
+            "error": "Invalid request data."
+        }), 400
 
     employee_name = data.get(
         "employee_name",
@@ -429,6 +427,16 @@ def submit_ticket():
         "Single user"
     )
 
+    recipient_email = data.get(
+        "email",
+        ""
+    )
+
+    if not recipient_email:
+
+        recipient_email = os.getenv(
+            "SMTP_EMAIL"
+        )
 
     # --------------------------------------
     # VALIDATE DESCRIPTION
@@ -442,9 +450,9 @@ def submit_ticket():
         }), 400
 
 
-    # --------------------------------------
-    # TICKET ANALYSIS
-    # --------------------------------------
+    # =====================================================
+    # MILESTONE 1: TICKET ANALYSIS
+    # =====================================================
 
     category = model.predict(
         [description]
@@ -460,28 +468,48 @@ def submit_ticket():
     )
 
 
-    # --------------------------------------
-    # RAG PIPELINE
-    # --------------------------------------
+    # =====================================================
+    # MILESTONE 2: RAG PIPELINE
+    # =====================================================
 
     start_time = time.time()
 
-    resolution_result = (
-        resolution_generator
-        .generate_resolution(
-            description
+    try:
+
+        resolution_result = (
+            resolution_generator
+            .generate_resolution(
+                description
+            )
         )
-    )
+
+    except Exception as error:
+
+        print(
+            "RAG processing error:",
+            error
+        )
+
+        resolution_result = {
+            "resolution":
+                "The AI resolution service "
+                "could not complete the request. "
+                "Additional investigation is required.",
+            "sources": [],
+            "query": description,
+            "context": "",
+            "workflow": {
+                "ticket_analysis": "failed",
+                "knowledge_retrieval": "failed",
+                "context_augmentation": "failed",
+                "resolution_generation": "failed"
+            }
+        }
 
     response_time = (
         time.time() -
         start_time
     )
-
-
-    # --------------------------------------
-    # RECORD ACTUAL PROCESSING METRIC
-    # --------------------------------------
 
     metrics_tracker.record_ticket(
         response_time=response_time
@@ -489,62 +517,369 @@ def submit_ticket():
 
 
     # --------------------------------------
-    # GET RAG RESULTS
+    # GET RAG RESULTS SAFELY
     # --------------------------------------
+
+    if not isinstance(
+        resolution_result,
+        dict
+    ):
+        resolution_result = {}
 
     resolution = (
         resolution_result.get(
-            "resolution",
-            "No resolution generated."
+            "resolution"
         )
+        or
+        "No resolution generated."
     )
 
     sources = (
         resolution_result.get(
-            "sources",
-            []
+            "sources"
         )
+        or
+        []
     )
 
     query = (
         resolution_result.get(
-            "query",
-            description
+            "query"
         )
+        or
+        description
     )
 
     context = (
         resolution_result.get(
-            "context",
-            ""
+            "context"
         )
+        or
+        ""
     )
 
     workflow = (
         resolution_result.get(
-            "workflow",
-            {}
+            "workflow"
         )
+        or
+        {}
     )
 
 
-    # --------------------------------------
+    # =====================================================
+    # MILESTONE 3: MULTI-AGENT WORKFLOW
+    # =====================================================
+
+    multi_agent_start = time.time()
+
+    try:
+
+        multi_agent_result = (
+            multi_agent_system.process_ticket(
+                description,
+                recipient_email,
+                priority
+            )
+        )
+
+    except Exception as error:
+
+        print(
+            "Multi-agent processing error:",
+            error
+        )
+
+        multi_agent_result = {
+
+            "diagnosis": {
+                "category":
+                    "Multi-Agent Error",
+
+                "diagnosis":
+                    str(error),
+
+                "confidence":
+                    0
+            },
+
+            "retrieval": {
+                "article":
+                    None,
+
+                "similarity":
+                    0,
+
+                "message":
+                    "Retrieval failed."
+            },
+
+            "resolution": {
+                "response":
+                    "Multi-agent workflow "
+                    "could not be completed.",
+
+                "steps":
+                    []
+            },
+
+            "validation": {
+                "confidence":
+                    0,
+
+                "status":
+                    "ESCALATE"
+            },
+
+            "escalation":
+                True,
+
+            "jira": {
+                "success":
+                    False,
+
+                "message":
+                    "Multi-agent processing failed."
+            },
+
+            "email": {
+                "success":
+                    False,
+
+                "message":
+                    "Multi-agent processing failed."
+            },
+
+            "priority":
+                priority
+        }
+
+
+    multi_agent_time = (
+        time.time() -
+        multi_agent_start
+    )
+
+
+    # =====================================================
+    # SAFELY EXTRACT MULTI-AGENT RESULTS
+    # =====================================================
+
+    if not isinstance(
+        multi_agent_result,
+        dict
+    ):
+        multi_agent_result = {}
+
+
+    agent_diagnosis = (
+        multi_agent_result.get(
+            "diagnosis"
+        )
+        or
+        {}
+    )
+
+    agent_retrieval = (
+        multi_agent_result.get(
+            "retrieval"
+        )
+        or
+        {}
+    )
+
+    agent_resolution = (
+        multi_agent_result.get(
+            "resolution"
+        )
+        or
+        {}
+    )
+
+    agent_validation = (
+        multi_agent_result.get(
+            "validation"
+        )
+        or
+        {}
+    )
+
+    agent_escalation = bool(
+        multi_agent_result.get(
+            "escalation",
+            False
+        )
+    )
+
+    jira_result = (
+        multi_agent_result.get(
+            "jira"
+        )
+        or
+        {}
+    )
+
+    email_result = (
+        multi_agent_result.get(
+            "email"
+        )
+        or
+        {}
+    )
+
+
+    # =====================================================
+    # IMPORTANT:
+    # RETRIEVAL ARTICLE CAN BE NONE
+    # =====================================================
+
+    retrieved_article = (
+        agent_retrieval.get(
+            "article"
+        )
+        or
+        {}
+    )
+
+    retrieved_article_title = (
+        retrieved_article.get(
+            "title"
+        )
+        or
+        "No relevant article"
+    )
+
+
+    # =====================================================
+    # COMBINED WORKFLOW INFORMATION
+    # =====================================================
+
+    multi_agent_workflow = {
+
+        "diagnosis_agent": {
+
+            "status":
+                "COMPLETED",
+
+            "category":
+                agent_diagnosis.get(
+                    "category",
+                    ""
+                ),
+
+            "confidence":
+                agent_diagnosis.get(
+                    "confidence",
+                    0
+                )
+        },
+
+
+        "retrieval_agent": {
+
+            "status":
+                "COMPLETED",
+
+            "article":
+                retrieved_article_title,
+
+            "similarity":
+                round(
+                    (
+                        agent_retrieval.get(
+                            "similarity",
+                            0
+                        )
+                        or
+                        0
+                    ) * 100,
+                    2
+                )
+        },
+
+
+        "resolution_agent": {
+
+            "status":
+                "COMPLETED",
+
+            "steps":
+                agent_resolution.get(
+                    "steps",
+                    []
+                )
+                or
+                []
+        },
+
+
+        "validation_agent": {
+
+            "status":
+                agent_validation.get(
+                    "status",
+                    "UNKNOWN"
+                ),
+
+            "confidence":
+                agent_validation.get(
+                    "confidence",
+                    0
+                )
+                or
+                0
+        },
+
+
+        "escalation_agent": {
+
+            "status":
+                "ESCALATED"
+                if agent_escalation
+                else
+                "NOT REQUIRED"
+        },
+
+
+        "jira":
+            jira_result,
+
+
+        "email":
+            email_result,
+
+
+        "processing_time":
+            round(
+                multi_agent_time,
+                3
+            )
+    }
+
+
+    # =====================================================
     # SAVE TICKET
-    # --------------------------------------
+    # =====================================================
 
     ticket_id = save_ticket(
+
         employee_name,
+
         department,
+
         description,
+
         category,
+
         severity,
+
         priority
     )
 
 
-    # --------------------------------------
+    # =====================================================
     # GET CURRENT METRICS
-    # --------------------------------------
+    # =====================================================
 
     metrics = (
         metrics_tracker.get_metrics(
@@ -554,9 +889,9 @@ def submit_ticket():
     )
 
 
-    # ======================================
+    # =====================================================
     # RETURN COMPLETE RESPONSE
-    # ======================================
+    # =====================================================
 
     return jsonify({
 
@@ -578,6 +913,11 @@ def submit_ticket():
         "status":
             "Open",
 
+
+        # -----------------------------
+        # MILESTONE 2 RAG
+        # -----------------------------
+
         "resolution":
             resolution,
 
@@ -593,15 +933,202 @@ def submit_ticket():
         "workflow":
             workflow,
 
+
+        # -----------------------------
+        # MILESTONE 3
+        # -----------------------------
+
+        "multi_agent":
+            multi_agent_result,
+
+        "multi_agent_workflow":
+            multi_agent_workflow,
+
+
+        # -----------------------------
+        # METRICS
+        # -----------------------------
+
         "metrics":
             metrics
-
     })
 
 
-# ==========================================
+# =========================================================
+# MULTI-AGENT API
+# =========================================================
+
+@app.route(
+    "/api/multi-agent",
+    methods=["POST"]
+)
+@jwt_required
+def multi_agent_api():
+
+    data = request.get_json()
+
+    if not data:
+
+        return jsonify({
+            "error":
+                "Invalid request data."
+        }), 400
+
+
+    ticket = data.get(
+        "ticket",
+        ""
+    )
+
+    recipient = data.get(
+        "email",
+        ""
+    )
+
+    impact = data.get(
+        "impact",
+        "Single user"
+    )
+
+
+    if not ticket:
+
+        return jsonify({
+            "error":
+                "Ticket description is required."
+        }), 400
+
+
+    if not recipient:
+
+        recipient = os.getenv(
+            "SMTP_EMAIL"
+        )
+
+
+    # =====================================================
+    # CALCULATE SEVERITY AND PRIORITY
+    # =====================================================
+
+    severity = determine_severity(
+        ticket
+    )
+
+    priority = determine_priority(
+        severity,
+        impact
+    )
+
+
+    # =====================================================
+    # RUN MULTI-AGENT SYSTEM
+    # =====================================================
+
+    start_time = time.time()
+
+    try:
+
+        result = (
+            multi_agent_system.process_ticket(
+                ticket,
+                recipient,
+                priority
+            )
+        )
+
+    except Exception as error:
+
+        print(
+            "Multi-agent API error:",
+            error
+        )
+
+        result = {
+
+            "diagnosis": {
+                "category":
+                    "Multi-Agent Error",
+
+                "diagnosis":
+                    str(error),
+
+                "confidence":
+                    0
+            },
+
+            "retrieval": {
+                "article":
+                    None,
+
+                "similarity":
+                    0
+            },
+
+            "resolution": {
+                "response":
+                    "Multi-agent workflow "
+                    "could not be completed.",
+
+                "steps":
+                    []
+            },
+
+            "validation": {
+                "confidence":
+                    0,
+
+                "status":
+                    "ESCALATE"
+            },
+
+            "escalation":
+                True,
+
+            "jira": {
+                "success":
+                    False
+            },
+
+            "email": {
+                "success":
+                    False
+            }
+        }
+
+
+    processing_time = (
+        time.time() -
+        start_time
+    )
+
+
+    if not isinstance(
+        result,
+        dict
+    ):
+        result = {}
+
+
+    result["processing_time"] = round(
+        processing_time,
+        3
+    )
+
+    result["severity"] = severity
+
+    result["priority"] = priority
+
+    result["impact"] = impact
+
+
+    return jsonify(
+        result
+    )
+
+
+# =========================================================
 # RESOLUTION FEEDBACK
-# ==========================================
+# =========================================================
 
 @app.route(
     "/feedback",
@@ -612,25 +1139,30 @@ def feedback():
 
     data = request.get_json()
 
+    if not data:
+
+        return jsonify({
+            "error":
+                "Invalid feedback data."
+        }), 400
+
+
     resolved = data.get(
         "resolved",
         False
     )
 
 
-    # Make sure the value is Boolean
     resolved = bool(
         resolved
     )
 
 
-    # Record actual user feedback
     metrics_tracker.record_feedback(
         resolved=resolved
     )
 
 
-    # Return updated metrics
     metrics = (
         metrics_tracker.get_metrics(
             retrieval_accuracy=
@@ -641,17 +1173,17 @@ def feedback():
 
     return jsonify({
 
-        "success": True,
+        "success":
+            True,
 
         "metrics":
             metrics
-
     })
 
 
-# ==========================================
+# =========================================================
 # RUN APPLICATION
-# ==========================================
+# =========================================================
 
 if __name__ == "__main__":
 
