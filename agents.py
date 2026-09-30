@@ -11,8 +11,11 @@ from jira_service import JiraService
 # LOAD KNOWLEDGE BASE
 # ============================================================
 
+# Use the SAME knowledge base as Milestone 2
+KNOWLEDGE_BASE_PATH = "data/knowledge_base.json"
+
 with open(
-    "knowledge_base/knowledge.json",
+    KNOWLEDGE_BASE_PATH,
     "r",
     encoding="utf-8"
 ) as file:
@@ -29,6 +32,21 @@ class DiagnosisAgent:
 
         self.rules = {
 
+            "Hardware": [
+                "laptop",
+                "computer",
+                "keyboard",
+                "mouse",
+                "touchpad",
+                "trackpad",
+                "screen",
+                "monitor",
+                "display",
+                "printer",
+                "printing",
+                "print"
+            ],
+
             "VPN / Network": [
                 "vpn",
                 "network",
@@ -36,7 +54,9 @@ class DiagnosisAgent:
                 "connection",
                 "connect",
                 "wifi",
-                "wi-fi"
+                "wi-fi",
+                "router",
+                "ethernet"
             ],
 
             "Password / Access": [
@@ -45,20 +65,16 @@ class DiagnosisAgent:
                 "sign in",
                 "signin",
                 "locked",
-                "access"
+                "access",
+                "permission"
             ],
 
             "Email": [
                 "email",
                 "mail",
                 "outlook",
-                "gmail"
-            ],
-
-            "Printer": [
-                "printer",
-                "printing",
-                "print"
+                "gmail",
+                "mailbox"
             ],
 
             "Performance": [
@@ -66,7 +82,19 @@ class DiagnosisAgent:
                 "lag",
                 "freeze",
                 "freezing",
-                "performance"
+                "performance",
+                "hang",
+                "hanging"
+            ],
+
+            "Software": [
+                "software",
+                "application",
+                "app",
+                "program",
+                "crash",
+                "error",
+                "not responding"
             ]
         }
 
@@ -116,7 +144,11 @@ class RetrievalAgent:
         for article in KNOWLEDGE_BASE:
 
             text = (
-                article.get("title", "")
+                article.get("category", "")
+                + " "
+                + article.get("subcategory", "")
+                + " "
+                + article.get("title", "")
                 + " "
                 + article.get("content", "")
             )
@@ -136,10 +168,39 @@ class RetrievalAgent:
         )
 
 
+    def normalize_query(self, query):
+
+        query = query.lower()
+
+        replacements = {
+            "log out": "logout",
+            "logging out": "logout",
+            "logs out": "logout",
+            "logged out": "logout",
+            "wi fi": "wifi",
+            "wi-fi": "wifi"
+        }
+
+        for old, new in replacements.items():
+
+            query = query.replace(
+                old,
+                new
+            )
+
+        return query
+
+
     def search(self, query):
 
-        query_vector = self.vectorizer.transform(
-            [query]
+        query = self.normalize_query(
+            query
+        )
+
+        query_vector = (
+            self.vectorizer.transform(
+                [query]
+            )
         )
 
         scores = cosine_similarity(
@@ -155,11 +216,12 @@ class RetrievalAgent:
         query_words = set(
             re.findall(
                 r"\b[a-zA-Z]{3,}\b",
-                query.lower()
+                query
             )
         )
 
         boosted_scores = scores.copy()
+
 
         for index, article in enumerate(
             KNOWLEDGE_BASE
@@ -170,26 +232,67 @@ class RetrievalAgent:
                 ""
             ).lower()
 
-            title_words = set(
+            subcategory = article.get(
+                "subcategory",
+                ""
+            ).lower()
+
+            category = article.get(
+                "category",
+                ""
+            ).lower()
+
+            important_text = (
+                title
+                + " "
+                + subcategory
+                + " "
+                + category
+            )
+
+            important_words = set(
                 re.findall(
                     r"\b[a-zA-Z]{3,}\b",
-                    title
+                    important_text
                 )
             )
 
 
-            if query_words.intersection(
-                title_words
-            ):
+            matching_words = (
+                query_words &
+                important_words
+            )
 
-                boosted_scores[index] += 0.20
+
+            if matching_words:
+
+                bonus = (
+                    len(matching_words)
+                    /
+                    max(
+                        len(query_words),
+                        1
+                    )
+                )
+
+                boosted_scores[index] += (
+                    0.30 * bonus
+                )
+
+
+            # Complete phrase match
+            if query in important_text:
+
+                boosted_scores[index] += 0.50
 
 
         # ----------------------------------------------------
         # FIND BEST ARTICLE
         # ----------------------------------------------------
 
-        best_index = boosted_scores.argmax()
+        best_index = (
+            boosted_scores.argmax()
+        )
 
         best_score = float(
             min(
@@ -205,13 +308,15 @@ class RetrievalAgent:
 
         MIN_RETRIEVAL_SCORE = 0.25
 
+
         if best_score < MIN_RETRIEVAL_SCORE:
 
             return {
                 "article": None,
                 "similarity": 0.0,
                 "message": (
-                    "No relevant knowledge-base article found."
+                    "No relevant knowledge-base "
+                    "article found."
                 )
             }
 
@@ -220,11 +325,20 @@ class RetrievalAgent:
         # RELEVANT ARTICLE FOUND
         # ----------------------------------------------------
 
+        article = KNOWLEDGE_BASE[
+            best_index
+        ]
+
+
         return {
-            "article": KNOWLEDGE_BASE[best_index],
+
+            "article": article,
+
             "similarity": best_score,
+
             "message": (
-                "Relevant knowledge-base article found."
+                "Relevant knowledge-base "
+                "article found."
             )
         }
 
@@ -245,208 +359,115 @@ class ResolutionAgent:
 
 
         # ----------------------------------------------------
-        # NO RELEVANT KNOWLEDGE-BASE ARTICLE
+        # NO RELEVANT ARTICLE
         # ----------------------------------------------------
 
         if article is None:
 
             return {
+
                 "response": (
                     "No relevant knowledge-base article "
                     "was found for this ticket. Additional "
                     "investigation is required."
                 ),
+
                 "steps": []
             }
 
 
         # ----------------------------------------------------
-        # VPN / NETWORK
+        # EXTRACT TROUBLESHOOTING STEPS FROM ARTICLE
         # ----------------------------------------------------
 
-        if category == "VPN / Network":
+        content = article.get(
+            "content",
+            ""
+        )
 
-            steps = [
-                "Check whether the device has an active internet connection.",
-                "Verify that the VPN client is installed and running.",
-                "Check the VPN server address and connection settings.",
-                "Disconnect and reconnect the VPN connection.",
-                "Restart the VPN client if the connection still fails.",
-                "Contact the IT support team if the issue continues."
-            ]
+        extracted_steps = []
 
-            response = (
-                "The issue appears to be related to "
-                "VPN or network connectivity. "
-                "Follow the troubleshooting steps below."
-            )
+        lines = content.split("\n")
 
 
-        # ----------------------------------------------------
-        # PASSWORD / ACCESS
-        # ----------------------------------------------------
+        for line in lines:
 
-        elif category == "Password / Access":
+            cleaned = line.strip()
 
-            steps = [
-                "Verify that the username is correct.",
-                "Check whether the account is locked.",
-                "Use the organization's password reset process.",
-                "Enter the new password carefully.",
-                "Try signing in again.",
-                "Contact IT support if access is still unavailable."
-            ]
-
-            response = (
-                "The issue appears to be related to "
-                "password or account access."
-            )
+            if not cleaned:
+                continue
 
 
-        # ----------------------------------------------------
-        # EMAIL
-        # ----------------------------------------------------
+            if (
+                cleaned.startswith("-")
+                or
+                cleaned.startswith("*")
+                or
+                re.match(
+                    r"^\d+[\.\)]",
+                    cleaned
+                )
+            ):
 
-        elif category == "Email":
+                cleaned = re.sub(
+                    r"^[-*]\s*",
+                    "",
+                    cleaned
+                )
 
-            steps = [
-                "Check whether the device has an active internet connection.",
-                "Verify the email account configuration.",
-                "Restart the email application.",
-                "Check whether the mailbox is full.",
-                "Try accessing the account through webmail.",
-                "Contact IT support if the email service remains unavailable."
-            ]
+                cleaned = re.sub(
+                    r"^\d+[\.\)]\s*",
+                    "",
+                    cleaned
+                )
 
-            response = (
-                "The issue appears to be related to "
-                "email service or configuration."
-            )
+                if cleaned:
+
+                    extracted_steps.append(
+                        cleaned
+                    )
 
 
         # ----------------------------------------------------
-        # PRINTER
+        # USE ARTICLE STEPS IF AVAILABLE
         # ----------------------------------------------------
 
-        elif category == "Printer":
+        if extracted_steps:
 
-            steps = [
-                "Check that the printer is powered on.",
-                "Verify that the printer is connected to the network.",
-                "Check the printer queue for stuck documents.",
-                "Remove any blocked print jobs.",
-                "Restart the printer.",
-                "Contact IT support if printing still does not work."
-            ]
-
-            response = (
-                "The issue appears to be related to "
-                "printer connectivity or printing."
-            )
-
-
-        # ----------------------------------------------------
-        # PERFORMANCE
-        # ----------------------------------------------------
-
-        elif category == "Performance":
-
-            steps = [
-                "Restart the computer.",
-                "Close unnecessary applications.",
-                "Check available storage space.",
-                "Check whether background applications are consuming resources.",
-                "Install available system updates.",
-                "Contact IT support if the computer remains slow."
-            ]
-
-            response = (
-                "The issue appears to be related to "
-                "computer performance."
-            )
-
-
-        # ----------------------------------------------------
-        # GENERAL IT ISSUE
-        # ----------------------------------------------------
+            steps = extracted_steps[:6]
 
         else:
 
-            content = article.get(
-                "content",
-                ""
-            )
+            steps = [
 
-            extracted_steps = []
+                "Review the relevant knowledge-base article.",
 
-            lines = content.split("\n")
+                "Verify the affected device or application.",
 
-            for line in lines:
+                "Check the related configuration and connectivity.",
 
-                cleaned = line.strip()
+                "Restart the affected service or application if appropriate.",
 
-                if not cleaned:
-                    continue
+                "Retry the operation.",
 
-
-                if (
-                    cleaned.startswith("-")
-                    or cleaned.startswith("*")
-                    or re.match(
-                        r"^\d+[\.\)]",
-                        cleaned
-                    )
-                ):
-
-                    cleaned = re.sub(
-                        r"^[-*]\s*",
-                        "",
-                        cleaned
-                    )
-
-                    cleaned = re.sub(
-                        r"^\d+[\.\)]\s*",
-                        "",
-                        cleaned
-                    )
-
-                    if cleaned:
-                        extracted_steps.append(
-                            cleaned
-                        )
+                "Contact IT support if the issue continues."
+            ]
 
 
-            if extracted_steps:
+        response = (
 
-                steps = extracted_steps[:6]
-
-                response = (
-                    "A relevant knowledge-base article "
-                    "was found for this issue. "
-                    "Follow the recommended troubleshooting "
-                    "steps below."
-                )
-
-            else:
-
-                steps = [
-                    "Review the relevant knowledge-base article.",
-                    "Verify the issue and affected system.",
-                    "Check the available configuration and connectivity.",
-                    "Restart the affected service or application if appropriate.",
-                    "Retry the operation.",
-                    "Contact IT support if the issue continues."
-                ]
-
-                response = (
-                    "A relevant knowledge-base article was "
-                    "found, but additional investigation may "
-                    "be required."
-                )
+            f"A relevant knowledge-base article "
+            f"('{article.get('title', 'Knowledge Article')}') "
+            "was found for this issue. "
+            "Follow the recommended troubleshooting "
+            "steps below."
+        )
 
 
         return {
+
             "response": response,
+
             "steps": steps
         }
 
@@ -464,14 +485,18 @@ class ValidationAgent:
         resolution
     ):
 
-        diagnosis_confidence = diagnosis.get(
-            "confidence",
-            0
+        diagnosis_confidence = float(
+            diagnosis.get(
+                "confidence",
+                0
+            )
         )
 
-        retrieval_similarity = retrieval.get(
-            "similarity",
-            0
+        retrieval_similarity = float(
+            retrieval.get(
+                "similarity",
+                0
+            )
         )
 
         number_of_steps = len(
@@ -483,17 +508,25 @@ class ValidationAgent:
 
 
         # ----------------------------------------------------
-        # VALIDATION CONFIDENCE FORMULA
+        # VALIDATION CONFIDENCE
         # ----------------------------------------------------
 
         confidence = (
+
             diagnosis_confidence * 0.40
-            + retrieval_similarity * 0.40
-            + min(
+
+            +
+
+            retrieval_similarity * 0.40
+
+            +
+
+            min(
                 number_of_steps / 6,
                 1
             ) * 0.20
         )
+
 
         confidence_percentage = (
             confidence * 100
@@ -509,8 +542,8 @@ class ValidationAgent:
             status = "AUTO_RESOLVE"
 
             message = (
-                "Confidence is high enough to automatically "
-                "resolve the ticket."
+                "Confidence is high enough to "
+                "automatically resolve the ticket."
             )
 
         else:
@@ -518,19 +551,28 @@ class ValidationAgent:
             status = "ESCALATE"
 
             message = (
-                "Confidence is below the automatic-resolution "
-                "threshold. The ticket should be escalated."
+                "Confidence is below the "
+                "automatic-resolution threshold. "
+                "The ticket should be escalated."
             )
 
 
         return {
-            "confidence": confidence,
-            "confidence_percentage": round(
-                confidence_percentage,
-                2
-            ),
-            "status": status,
-            "message": message
+
+            "confidence":
+                confidence,
+
+            "confidence_percentage":
+                round(
+                    confidence_percentage,
+                    2
+                ),
+
+            "status":
+                status,
+
+            "message":
+                message
         }
 
 
@@ -542,29 +584,250 @@ class EscalationAgent:
 
     def evaluate(
         self,
-        validation
+        validation,
+        priority="P4",
+        resolution_failed=False,
+        customer_requested_human=False,
+        repeated_attempts=0
     ):
 
-        should_escalate = (
-            validation["status"]
-            == "ESCALATE"
+        # ----------------------------------------------------
+        # VALIDATION INFORMATION
+        # ----------------------------------------------------
+
+        confidence = float(
+            validation.get(
+                "confidence",
+                0
+            )
         )
+
+        validation_status = str(
+            validation.get(
+                "status",
+                ""
+            )
+        ).upper()
+
+
+        # ----------------------------------------------------
+        # NORMALIZE PRIORITY
+        # ----------------------------------------------------
+
+        priority_value = str(
+            priority or ""
+        ).strip().upper()
+
+
+        # ----------------------------------------------------
+        # WEEK 7 ESCALATION CONDITIONS
+        # ----------------------------------------------------
+
+        # Assignment requirement:
+        # priority == "Critical"
+        #
+        # SupportPilot normally uses P1/P2/P3/P4,
+        # therefore P1 is also treated as critical.
+
+        critical_priority = (
+            priority_value == "CRITICAL"
+            or
+            priority_value == "P1"
+        )
+
+
+        # AI confidence below 70%
+        low_confidence = (
+            confidence < 0.70
+        )
+
+
+        # Validation agent itself requested escalation
+        validation_failed = (
+            validation_status
+            ==
+            "ESCALATE"
+        )
+
+
+        # Resolution failed
+        failed_resolution = bool(
+            resolution_failed
+        )
+
+
+        # Customer explicitly requested human support
+        human_requested = bool(
+            customer_requested_human
+        )
+
+
+        # Three or more repeated attempts
+        try:
+
+            attempts = int(
+                repeated_attempts or 0
+            )
+
+        except (
+            TypeError,
+            ValueError
+        ):
+
+            attempts = 0
+
+
+        too_many_attempts = (
+            attempts >= 3
+        )
+
+
+        # ----------------------------------------------------
+        # FINAL ESCALATION DECISION
+        # ----------------------------------------------------
+
+        should_escalate = (
+            critical_priority
+            or
+            low_confidence
+            or
+            validation_failed
+            or
+            failed_resolution
+            or
+            human_requested
+            or
+            too_many_attempts
+        )
+
+
+        # ----------------------------------------------------
+        # ESCALATION REASONS
+        # ----------------------------------------------------
+
+        reasons = []
+
+
+        if critical_priority:
+
+            reasons.append(
+                "Critical priority ticket"
+            )
+
+
+        if low_confidence:
+
+            reasons.append(
+                "AI confidence below 70%"
+            )
+
+
+        if validation_failed:
+
+            reasons.append(
+                "Validation agent requested escalation"
+            )
+
+
+        if failed_resolution:
+
+            reasons.append(
+                "Resolution attempt failed"
+            )
+
+
+        if human_requested:
+
+            reasons.append(
+                "Customer requested human support"
+            )
+
+
+        if too_many_attempts:
+
+            reasons.append(
+                "Repeated resolution attempts reached 3 or more"
+            )
+
+
+        # ----------------------------------------------------
+        # RETURN ESCALATED RESULT
+        # ----------------------------------------------------
 
         if should_escalate:
 
             return {
-                "escalate": True,
+
+                "escalate":
+                    True,
+
                 "message": (
                     "Ticket requires human support. "
                     "Escalation initiated."
-                )
+                ),
+
+                "reasons":
+                    reasons,
+
+                "conditions": {
+
+                    "critical_priority":
+                        critical_priority,
+
+                    "low_confidence":
+                        low_confidence,
+
+                    "validation_failed":
+                        validation_failed,
+
+                    "resolution_failed":
+                        failed_resolution,
+
+                    "customer_requested_human":
+                        human_requested,
+
+                    "repeated_attempts":
+                        too_many_attempts
+                }
             }
 
+
+        # ----------------------------------------------------
+        # RETURN AUTO-RESOLUTION RESULT
+        # ----------------------------------------------------
+
         return {
-            "escalate": False,
+
+            "escalate":
+                False,
+
             "message": (
                 "Ticket can be automatically resolved."
-            )
+            ),
+
+            "reasons":
+                [],
+
+            "conditions": {
+
+                "critical_priority":
+                    False,
+
+                "low_confidence":
+                    False,
+
+                "validation_failed":
+                    False,
+
+                "resolution_failed":
+                    False,
+
+                "customer_requested_human":
+                    False,
+
+                "repeated_attempts":
+                    False
+            }
         }
 
 
@@ -590,7 +853,7 @@ class SupportPilot:
 
 
         # ----------------------------------------------------
-        # INITIALIZE ALL AGENTS
+        # INITIALIZE AGENTS
         # ----------------------------------------------------
 
         self.diagnosis_agent = (
@@ -627,12 +890,13 @@ class SupportPilot:
         self,
         ticket,
         recipient_email=None,
-        priority="P4"
+        priority="P4",
+        customer_requested_human=False,
+        repeated_attempts=0
     ):
 
         # ====================================================
-        # AGENT 1
-        # DIAGNOSIS
+        # AGENT 1 — DIAGNOSIS
         # ====================================================
 
         diagnosis = (
@@ -643,8 +907,7 @@ class SupportPilot:
 
 
         # ====================================================
-        # AGENT 2
-        # RETRIEVAL
+        # AGENT 2 — RETRIEVAL
         # ====================================================
 
         retrieval = (
@@ -655,21 +918,40 @@ class SupportPilot:
 
 
         # ====================================================
-        # AGENT 3
-        # RESOLUTION
+        # AGENT 3 — RESOLUTION
         # ====================================================
 
         resolution = (
             self.resolution_agent.generate(
                 diagnosis,
-                retrieval.get("article")
+                retrieval.get(
+                    "article"
+                )
             )
         )
 
 
         # ====================================================
-        # AGENT 4
-        # VALIDATION
+        # DETERMINE RESOLUTION FAILURE
+        # ====================================================
+
+        resolution_steps = (
+            resolution.get(
+                "steps",
+                []
+            )
+            or
+            []
+        )
+
+
+        resolution_failed = (
+            len(resolution_steps) == 0
+        )
+
+
+        # ====================================================
+        # AGENT 4 — VALIDATION
         # ====================================================
 
         validation = (
@@ -682,13 +964,24 @@ class SupportPilot:
 
 
         # ====================================================
-        # AGENT 5
-        # ESCALATION
+        # AGENT 5 — ESCALATION
         # ====================================================
 
         escalation = (
             self.escalation_agent.evaluate(
-                validation
+
+                validation,
+
+                priority=priority,
+
+                resolution_failed=
+                    resolution_failed,
+
+                customer_requested_human=
+                    customer_requested_human,
+
+                repeated_attempts=
+                    repeated_attempts
             )
         )
 
@@ -698,10 +991,12 @@ class SupportPilot:
         # ====================================================
 
         jira_result = {
-            "success": False,
-            "message": (
+
+            "success":
+                False,
+
+            "message":
                 "Jira escalation not required."
-            )
         }
 
 
@@ -709,9 +1004,13 @@ class SupportPilot:
 
             jira_result = (
                 self.jira_service.create_issue(
+
                     ticket,
+
                     diagnosis,
+
                     resolution,
+
                     priority=priority
                 )
             )
@@ -723,20 +1022,35 @@ class SupportPilot:
 
         return {
 
-            "diagnosis": diagnosis,
+            "diagnosis":
+                diagnosis,
 
-            "retrieval": retrieval,
+            "retrieval":
+                retrieval,
 
-            "resolution": resolution,
+            "resolution":
+                resolution,
 
-            "validation": validation,
+            "validation":
+                validation,
 
-            "escalation": escalation,
+            "escalation":
+                escalation,
 
-            "jira": jira_result,
+            "jira":
+                jira_result,
 
-            "priority": priority
+            "priority":
+                priority,
 
+            "customer_requested_human":
+                customer_requested_human,
+
+            "repeated_attempts":
+                repeated_attempts,
+
+            "resolution_failed":
+                resolution_failed
         }
 
 
@@ -748,19 +1062,102 @@ if __name__ == "__main__":
 
     system = SupportPilot()
 
-    test_ticket = (
-        "My VPN is not connecting to the "
-        "company network."
-    )
 
-    result = system.process_ticket(
-        test_ticket,
-        priority="P2"
+    test_tickets = [
+
+        "My laptop touchpad is not responding.",
+
+        "My VPN is not connecting to the company network.",
+
+        "My computer is very slow."
+    ]
+
+
+    print(
+        "\n=========================================="
     )
 
     print(
-        json.dumps(
-            result,
-            indent=4
-        )
+        "       SUPPORTPILOT AGENT TEST"
     )
+
+    print(
+        "=========================================="
+    )
+
+
+    for test_ticket in test_tickets:
+
+        print(
+            "\n------------------------------------------"
+        )
+
+        print(
+            "TEST TICKET:"
+        )
+
+        print(
+            test_ticket
+        )
+
+
+        result = system.process_ticket(
+
+            test_ticket,
+
+            priority="P4"
+        )
+
+
+        print(
+            "\nDiagnosis:"
+        )
+
+        print(
+            result["diagnosis"]
+        )
+
+
+        print(
+            "\nRetrieval:"
+        )
+
+        print(
+            result["retrieval"]
+        )
+
+
+        print(
+            "\nResolution:"
+        )
+
+        print(
+            result["resolution"]
+        )
+
+
+        print(
+            "\nValidation:"
+        )
+
+        print(
+            result["validation"]
+        )
+
+
+        print(
+            "\nEscalation:"
+        )
+
+        print(
+            result["escalation"]
+        )
+
+
+        print(
+            "\nJira:"
+        )
+
+        print(
+            result["jira"]
+        )

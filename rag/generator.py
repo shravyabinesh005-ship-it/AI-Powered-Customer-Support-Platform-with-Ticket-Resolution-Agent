@@ -1,4 +1,5 @@
 import os
+import time
 
 from dotenv import load_dotenv
 from google import genai
@@ -21,26 +22,40 @@ class ResolutionGenerator:
 
     def __init__(self):
 
-        api_key = os.getenv(
-            "GEMINI_API_KEY"
-        )
+        api_key = os.getenv("GEMINI_API_KEY")
 
         if not api_key:
-
             raise ValueError(
                 "GEMINI_API_KEY was not found. "
                 "Please check your .env file."
             )
 
+        # -------------------------------------------------
+        # GEMINI CLIENT
+        # -------------------------------------------------
+
         self.client = genai.Client(
             api_key=api_key
         )
 
+        # -------------------------------------------------
+        # RAG RETRIEVER
+        # -------------------------------------------------
+
         self.retriever = Retriever()
 
-        self.model_name = (
-            "gemini-3.6-flash"
-        )
+        # -------------------------------------------------
+        # GEMINI MODEL
+        # -------------------------------------------------
+
+        self.model_name = "gemini-3.6-flash"
+
+        # -------------------------------------------------
+        # RETRY SETTINGS
+        # -------------------------------------------------
+
+        self.max_attempts = 3
+
 
     # =====================================================
     # 1. TICKET ANALYSIS & QUERY GENERATION
@@ -51,12 +66,10 @@ class ResolutionGenerator:
         ticket_description
     ):
 
-        # For the current milestone, the ticket description
-        # itself is converted into a clean retrieval query.
-
         query = ticket_description.strip()
 
         return query
+
 
     # =====================================================
     # 2. CONTEXT AUGMENTATION
@@ -87,6 +100,7 @@ Content:
         return "\n".join(
             context_parts
         )
+
 
     # =====================================================
     # FALLBACK RESPONSE
@@ -129,13 +143,11 @@ Content:
 
                     "query":
                         search_query
-
                 },
 
                 "knowledge_retrieval": {
 
-                    "status":
-                        "completed",
+                    "status": "completed",
 
                     "message":
                         (
@@ -149,13 +161,11 @@ Content:
 
                     "sources":
                         sources
-
                 },
 
                 "context_augmentation": {
 
-                    "status":
-                        "completed",
+                    "status": "completed",
 
                     "message":
                         (
@@ -166,7 +176,6 @@ Content:
 
                     "context_documents":
                         len(sources)
-
                 },
 
                 "resolution_generation": {
@@ -177,7 +186,8 @@ Content:
                     "message":
                         (
                             "Gemini resolution generation "
-                            "was temporarily unavailable. "
+                            "was temporarily unavailable "
+                            "after multiple attempts. "
                             "Fallback response returned."
                         ),
 
@@ -186,12 +196,10 @@ Content:
 
                     "error":
                         str(reason)
-
                 }
-
             }
-
         }
+
 
     # =====================================================
     # 3. RESOLUTION GENERATION
@@ -202,9 +210,9 @@ Content:
         ticket_description
     ):
 
-        # --------------------------------------
+        # =================================================
         # STEP 1: TICKET ANALYSIS & QUERY
-        # --------------------------------------
+        # =================================================
 
         search_query = (
             self.generate_search_query(
@@ -212,30 +220,30 @@ Content:
             )
         )
 
-        # --------------------------------------
+
+        # =================================================
         # STEP 2: KNOWLEDGE BASE RETRIEVAL
-        # --------------------------------------
+        # =================================================
 
         results = self.retriever.search(
             search_query,
             top_k=3
         )
 
-        # --------------------------------------
+
+        # =================================================
         # HANDLE NO RETRIEVAL RESULTS
-        # --------------------------------------
+        # =================================================
 
         if not results:
 
             return {
 
                 "resolution": (
-
                     "Insufficient knowledge-base "
                     "information was found to generate "
                     "a reliable resolution. Additional "
                     "investigation is required."
-
                 ),
 
                 "sources": [],
@@ -255,8 +263,10 @@ Content:
                             (
                                 "Ticket analyzed and "
                                 "retrieval query generated."
-                            )
+                            ),
 
+                        "query":
+                            search_query
                     },
 
                     "knowledge_retrieval": {
@@ -273,7 +283,6 @@ Content:
 
                         "articles_found":
                             0
-
                     },
 
                     "context_augmentation": {
@@ -287,8 +296,10 @@ Content:
                                 "created because no "
                                 "relevant articles were "
                                 "retrieved."
-                            )
+                            ),
 
+                        "context_documents":
+                            0
                     },
 
                     "resolution_generation": {
@@ -305,24 +316,23 @@ Content:
 
                         "model":
                             self.model_name
-
                     }
-
                 }
-
             }
 
-        # --------------------------------------
+
+        # =================================================
         # STEP 3: CONTEXT AUGMENTATION
-        # --------------------------------------
+        # =================================================
 
         context = self.build_context(
             results
         )
 
-        # --------------------------------------
+
+        # =================================================
         # STORE SOURCE INFORMATION
-        # --------------------------------------
+        # =================================================
 
         sources = []
 
@@ -347,12 +357,12 @@ Content:
                         result["score"],
                         4
                     )
-
             })
 
-        # --------------------------------------
+
+        # =================================================
         # STEP 4: CREATE GEMINI PROMPT
-        # --------------------------------------
+        # =================================================
 
         prompt = f"""
 You are an enterprise IT support resolution assistant.
@@ -373,6 +383,8 @@ IMPORTANT RULES:
 7. Keep the response concise and professional.
 8. Mention the Knowledge Base ID used for the resolution.
 9. Do not cite knowledge articles that were not provided.
+10. Do not provide information that conflicts with the
+    retrieved knowledge-base content.
 
 SUPPORT TICKET:
 {ticket_description}
@@ -398,51 +410,181 @@ Explain what the support agent should recommend.
 Mention the relevant Knowledge Base ID and article title.
 """
 
+
         # =================================================
-        # STEP 5: GEMINI GENERATION
+        # STEP 5: GEMINI GENERATION WITH RETRY
         # =================================================
 
-        try:
+        resolution = None
+        last_error = None
 
-            response = (
-                self.client.models.generate_content(
 
-                    model=self.model_name,
+        print(
+            "\n=========================================="
+        )
 
-                    contents=prompt
+        print(
+            "GEMINI RESOLUTION GENERATION"
+        )
 
+        print(
+            "=========================================="
+        )
+
+        print(
+            f"Model: {self.model_name}"
+        )
+
+        print(
+            f"Maximum attempts: {self.max_attempts}"
+        )
+
+        print(
+            "Sending request to Gemini..."
+        )
+
+
+        # -------------------------------------------------
+        # RETRY LOOP
+        # -------------------------------------------------
+
+        for attempt in range(
+            1,
+            self.max_attempts + 1
+        ):
+
+            try:
+
+                print(
+                    f"\nGemini attempt "
+                    f"{attempt}/{self.max_attempts}..."
                 )
-            )
 
-            # ------------------------------------------
-            # CHECK GEMINI RESPONSE
-            # ------------------------------------------
 
-            if not response:
+                response = (
+                    self.client.models.generate_content(
 
-                raise RuntimeError(
-                    "Gemini returned an empty response."
+                        model=self.model_name,
+
+                        contents=prompt
+                    )
                 )
 
-            resolution = (
-                response.text
-                if response.text
-                else ""
-            )
 
-            resolution = resolution.strip()
+                # -----------------------------------------
+                # CHECK RESPONSE OBJECT
+                # -----------------------------------------
 
-            if not resolution:
+                if response is None:
 
-                raise RuntimeError(
-                    "Gemini returned an empty resolution."
+                    raise RuntimeError(
+                        "Gemini returned no response object."
+                    )
+
+
+                # -----------------------------------------
+                # GET GENERATED TEXT
+                # -----------------------------------------
+
+                resolution = getattr(
+                    response,
+                    "text",
+                    None
                 )
 
-        except Exception as error:
 
-            # ------------------------------------------
-            # GEMINI FAILURE
-            # ------------------------------------------
+                if not resolution:
+
+                    raise RuntimeError(
+                        "Gemini returned an empty response."
+                    )
+
+
+                resolution = (
+                    resolution.strip()
+                )
+
+
+                if not resolution:
+
+                    raise RuntimeError(
+                        "Gemini returned an empty "
+                        "resolution after stripping whitespace."
+                    )
+
+
+                # -----------------------------------------
+                # SUCCESS
+                # -----------------------------------------
+
+                print(
+                    "\nGemini resolution generated "
+                    "successfully."
+                )
+
+                print(
+                    "==========================================\n"
+                )
+
+                break
+
+
+            except Exception as error:
+
+                last_error = error
+
+                print(
+                    f"\nGemini attempt "
+                    f"{attempt} failed."
+                )
+
+                print(
+                    f"Error type: "
+                    f"{type(error).__name__}"
+                )
+
+                print(
+                    f"Error message: "
+                    f"{error}"
+                )
+
+
+                # -----------------------------------------
+                # RETRY IF ATTEMPTS REMAIN
+                # -----------------------------------------
+
+                if attempt < self.max_attempts:
+
+                    wait_time = (
+                        attempt * 3
+                    )
+
+                    print(
+                        f"\nTemporary Gemini failure "
+                        f"detected."
+                    )
+
+                    print(
+                        f"Retrying in "
+                        f"{wait_time} seconds..."
+                    )
+
+                    time.sleep(
+                        wait_time
+                    )
+
+                else:
+
+                    print(
+                        "\nAll Gemini attempts failed."
+                    )
+
+
+        # =================================================
+        # HANDLE COMPLETE GEMINI FAILURE
+        # =================================================
+
+        if not resolution:
 
             print(
                 "\n=========================================="
@@ -457,7 +599,13 @@ Mention the relevant Knowledge Base ID and article title.
             )
 
             print(
-                error
+                f"Error type: "
+                f"{type(last_error).__name__}"
+            )
+
+            print(
+                f"Error message: "
+                f"{last_error}"
             )
 
             print(
@@ -468,17 +616,18 @@ Mention the relevant Knowledge Base ID and article title.
                 "==========================================\n"
             )
 
+
             return self.build_fallback_resolution(
 
-                reason=error,
+                reason=last_error,
 
                 search_query=search_query,
 
                 sources=sources,
 
                 context=context
-
             )
+
 
         # =================================================
         # STEP 6: COMPLETE WORKFLOW INFORMATION
@@ -499,8 +648,8 @@ Mention the relevant Knowledge Base ID and article title.
 
                 "query":
                     search_query
-
             },
+
 
             "knowledge_retrieval": {
 
@@ -519,8 +668,8 @@ Mention the relevant Knowledge Base ID and article title.
 
                 "sources":
                     sources
-
             },
+
 
             "context_augmentation": {
 
@@ -536,8 +685,8 @@ Mention the relevant Knowledge Base ID and article title.
 
                 "context_documents":
                     len(results)
-
             },
+
 
             "resolution_generation": {
 
@@ -551,11 +700,13 @@ Mention the relevant Knowledge Base ID and article title.
                     ),
 
                 "model":
-                    self.model_name
+                    self.model_name,
 
+                "attempts":
+                    attempt
             }
-
         }
+
 
         # =================================================
         # STEP 7: RETURN COMPLETE RESULT
@@ -577,7 +728,6 @@ Mention the relevant Knowledge Base ID and article title.
 
             "workflow":
                 workflow
-
         }
 
 
@@ -589,9 +739,11 @@ if __name__ == "__main__":
 
     generator = ResolutionGenerator()
 
+
     test_ticket = (
         "My computer cannot connect to the office network."
     )
+
 
     print(
         "\n=========================================="
@@ -605,13 +757,20 @@ if __name__ == "__main__":
         "=========================================="
     )
 
+
+    # =====================================================
+    # 1. TICKET ANALYSIS
+    # =====================================================
+
     print(
         "\n[1] Ticket Analysis & Query Generation"
     )
 
+
     result = generator.generate_resolution(
         test_ticket
     )
+
 
     print(
         "\nGenerated Query:"
@@ -621,33 +780,64 @@ if __name__ == "__main__":
         result["query"]
     )
 
+
+    # =====================================================
+    # 2. KNOWLEDGE RETRIEVAL
+    # =====================================================
+
     print(
         "\n[2] Knowledge Base Retrieval"
     )
 
-    for source in result["sources"]:
+
+    if result["sources"]:
+
+        for source in result["sources"]:
+
+            print(
+                f"- {source['title']} "
+                f"(Score: {source['score']})"
+            )
+
+    else:
 
         print(
-            f"- {source['title']} "
-            f"(Score: {source['score']})"
+            "No relevant knowledge-base articles found."
         )
+
+
+    # =====================================================
+    # 3. CONTEXT AUGMENTATION
+    # =====================================================
 
     print(
         "\n[3] Context Augmentation"
     )
+
 
     print(
         f"Context documents: "
         f"{result['workflow']['context_augmentation'].get('context_documents', 0)}"
     )
 
+
+    # =====================================================
+    # 4. GEMINI RESOLUTION
+    # =====================================================
+
     print(
         "\n[4] Gemini Resolution Generation"
     )
 
+
     print(
         result["resolution"]
     )
+
+
+    # =====================================================
+    # 5. WORKFLOW STATUS
+    # =====================================================
 
     print(
         "\n=========================================="
@@ -660,6 +850,7 @@ if __name__ == "__main__":
     print(
         "=========================================="
     )
+
 
     for stage, details in result["workflow"].items():
 
