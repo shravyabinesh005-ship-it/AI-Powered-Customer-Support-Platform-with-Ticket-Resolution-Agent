@@ -6,3 +6,17 @@ __pycache__/
 supportpilot.db
 dataset/clean_customer_support_tickets.csv
 dataset/helpdesk_tickets.csv
+# Local virtual environment
+week7_venv/
+
+# Local backup files
+*_backup.py
+*_backup.html
+app_before_*.py
+templates/index_before_*.html
+templates/index_backup_*.html
+
+# Local temporary/project backup files
+integrate_sidebar.py
+dashboard.py
+supportpilot_before_week7_metrics.db
